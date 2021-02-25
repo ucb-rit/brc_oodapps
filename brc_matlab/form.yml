@@ -1,0 +1,70 @@
+---
+cluster:
+  - "brc"
+cacheable: "false"
+
+form:
+  - job_name 
+  - versions
+  - node_type 
+  - slurm_partition
+  - bc_account 
+  - qos_name
+  - bc_num_hours
+  - bc_num_slots 
+  - bc_vnc_resolution
+  - bc_email_on_started
+
+attributes:
+  node_type: "CPU"
+  
+  job_name:
+    label: "Name of the job"
+    value: "OOD_MatLab_"
+
+  versions:
+    widget: select
+    label: "MATLAB Versions"
+    help: "This defines the version of MATLAB to load."
+    options:
+      - [ "R2020b", "matlab/r2020b" ]
+      - [ "R2020a", "matlab/r2020a" ]
+      - [ "R2019a", "matlab/r2019a" ]
+      - [ "R2017b", "matlab/r2017b" ]
+      - [ "R2016b", "matlab/r2016b" ]
+
+  slurm_partition: 
+    widget: "select"
+    label: "SLURM Partition"
+    help: "Choose the name of the SLURM Partition in which you want to launch this MatLab Server"
+    options:
+      - [ "savio", "savio" ]
+      - [ "savio2", "savio2" ]
+      - [ "savio2_htc", "savio2_htc" ]
+      - [ "savio2_knl", "savio2_knl" ]
+      - [ "savio3", "savio3" ]
+      - [ "vector", "vector" ]
+    required: true
+
+  bc_vnc_resolution:
+    required: true
+
+  bc_account:
+    label: "SLURM Project/Account Name"
+    help: "You can't leave this blank."
+
+  qos_name:
+    label: "SLURM QoS Name"
+    help: "Most users can leave it black for default assignment, Savio Condo users want to specify their condo QoS name"
+ 
+  bc_num_slots:
+    label: "Number of CPU Nodes"
+    help: "Please specify number of CPU nodes"
+    value: 1
+    max: 10
+    step: 1
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "How many hours do you want to run this MatLab?"
+    value: 1

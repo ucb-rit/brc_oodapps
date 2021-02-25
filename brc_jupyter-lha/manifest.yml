@@ -1,0 +1,13 @@
+---
+name: Jupyter Server - nonbatch for exploration, debugging
+category: Interactive Apps
+subcategory: Servers
+role: batch_connect
+description: |
+  This app will launch a [Jupyter] server using [Python] on the [UCB] [Research-IT] Berkeley Research Computing([BRC]) Infrastructure. Use this app to launch notebooks for light weight, short duration, interactive exploration and debugging of code and data. For heavy, long and compute intensive needs please use the another Jupyter Server app to run in the batch queues of the clusters.
+
+  [Jupyter]: https://jupyter.org/
+  [Python]: https://www.python.org/
+  [UCB]: https://www.berkeley.edu/
+  [Research-IT]: https://research-it.berkeley.edu/
+  [BRC]: https://research-it.berkeley.edu/programs/berkeley-research-computing

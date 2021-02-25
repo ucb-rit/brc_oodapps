@@ -1,0 +1,18 @@
+<%-
+  case node_type
+  when "CPU"
+    slurm_args = [ "--nodes", "#{bc_num_slots}", "--cpus-per-task","12", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{bc_account}"]
+  
+  when "GPUs"
+    slurm_args = [ "--nodes", "1", "--ntasks-per-node", "#{ppn}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{bc_account}", "--gres", "gpu:#{node_cpu_gpu_count}", "--ntasks", "2" ]
+    
+  end
+%>
+---
+batch_connect:
+  template: vnc
+script:
+  native:
+  <%- slurm_args.each do |arg| %>
+    - "<%= arg %>"
+  <%- end %>
