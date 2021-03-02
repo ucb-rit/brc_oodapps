@@ -18,7 +18,7 @@ attributes:
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "How many hours do you want to run this Jupyter Server for ?"
+    help: "How many hours do you want to run this VS Code Server for ?"
     value: 1
   working_dir:
     label: "Working Directory"
