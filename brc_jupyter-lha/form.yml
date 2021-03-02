@@ -17,5 +17,5 @@ attributes:
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "How many hours do you want to run this Jupyter Server for ?"
+    help: "How many hours do you want to run this Jupyter Server for ? (At this time Jupyter Servers launched in this mode are limited to 1 cpu core and 256MB of memory, If you want more CPU/MEM or GPU resources please choose to launch Jupyter Server via compute app in the batch queues)"
     value: 1
