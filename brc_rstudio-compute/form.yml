@@ -40,6 +40,7 @@ attributes:
       - [ "savio2_1080ti", "savio2_1080ti" ]
       - [ "savio2_knl", "savio2_knl" ]
       - [ "savio3", "savio3" ]
+      - [ "savio3_htc", "savio3_htc" ]
       - [ "savio3_gpu", "savio3_gpu" ]
       - [ "vector", "vector" ]
     required: true

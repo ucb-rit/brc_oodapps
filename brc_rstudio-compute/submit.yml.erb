@@ -49,7 +49,7 @@ script:
      - "--gres"
      - "<%= gres_value %>"
      <%- end %>
-     <%- if slurm_partition == "savio2_gpu" or slurm_partition == "savio2_1080ti" or slurm_partition == "savio3_gpu" or slurm_partition == "savio2_htc" or slurm_partition == "savio2_knl" %>
+     <%- if slurm_partition == "savio2_gpu" or slurm_partition == "savio2_1080ti" or slurm_partition == "savio3_gpu" or slurm_partition == "savio2_htc" or slurm_partition == "savio2_knl" or slurm_partition == "savio3_htc" %>
      - "--ntasks-per-node"
      - "<%= num_cores %>"
      - "--nodes"
