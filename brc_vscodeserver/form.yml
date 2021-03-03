@@ -7,23 +7,11 @@
 cluster: "brc_jupyter_lha"
 
 form:
-  - modules
-  - extra_jupyter_args
   - bc_num_hours
-  - working_dir
 
 attributes:
-  modules: "python/3.7"
-  extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
 
   bc_num_hours:
     label: "Wall Clock Time"
     help: "How many hours do you want to run this VS Code Server for ?"
     value: 1
-  working_dir:
-    label: "Working Directory"
-    data-filepicker: true
-    data-target-file-type: dirs  # Valid values are: files, dirs, or both
-    readonly: false
-    help: "Select your project directory; defaults to $HOME"
-
