@@ -2,6 +2,38 @@
 #
 # @note Used to define the submitted cluster, title, description, and
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
+
+<%-
+  cmd = "/usr/bin/sacctmgr show assoc user=$USER -P -n format=account | sort | uniq"
+  begin
+    output, status = Open3.capture2e(cmd)
+    if status.success?
+      accounts = output.split("\n")
+    else
+      raise output
+    end
+  rescue => e
+    accounts = []
+    aerror = e.message.strip
+  end
+-%>
+
+<%-
+  cmd = "/usr/bin/sacctmgr show assoc user=$USER -P -n format=qos | tr ',' '\n' | sort | uniq"
+  begin
+    output, status = Open3.capture2e(cmd)
+    if status.success?
+      qos = output.split("\n")
+    else
+      raise output
+    end
+  rescue => e
+    qos = []
+    qerror = e.message.strip
+  end
+-%>
+
+
 ---
 
 cluster: "brc"
@@ -11,7 +43,7 @@ form:
   - extra_jupyter_args
   - job_name
   - slurm_partition
-  - bc_account
+  - slurm_account
   - qos_name
   - num_nodes
   - num_cores
@@ -49,13 +81,43 @@ attributes:
       - [ "vector", "vector" ]
     required: true
 
-  bc_account:
+  slurm_account:
     label: "SLURM Project/Account Name"
+    help: "For non Savio partitions you can leave this blank."
+    <%- if aerror -%>
+      <span class="text-danger">Error when parsing accounts:</span>
+      ```
+      <%= aerror.gsub("\n", "\n     ") %>
+      ```
+    <%- end -%>
+  <%- if accounts.blank? -%>
+    widget: text_field
+  <%- else -%>
+    widget: select
+    options:
+    <%- accounts.each do |q| -%>
+      - [ "<%= q %>", "<%= q %>" ]
+    <%- end -%>
+  <%- end -%>
 
   qos_name:
     label: "SLURM QoS Name"
     help: "Most users can leave it black for default assignment, Savio Condo users want to specify their condo QoS name"
-    #value: "savio_normal"
+    <%- if qerror -%>
+      <span class="text-danger">Error when parsing accounts:</span>
+      ```
+      <%= qerror.gsub("\n", "\n     ") %>
+      ```
+    <%- end -%>
+  <%- if qos.blank? -%>
+    widget: text_field
+  <%- else -%>
+    widget: select
+    options:
+    <%- qos.each do |q| -%>
+      - [ "<%= q %>", "<%= q %>" ]
+    <%- end -%>
+  <%- end -%>
 
   num_nodes:
     label: "Number of Nodes"
