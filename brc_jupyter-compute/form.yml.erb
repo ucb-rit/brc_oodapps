@@ -4,6 +4,21 @@
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
 
 <%-
+  cmd = "/usr/bin/sacctmgr show assoc user=$USER -P -n format=partition | grep -v ood_inter | sort | uniq"
+  begin
+    output, status = Open3.capture2e(cmd)
+    if status.success?
+      partitions = output.split("\n")
+    else
+      raise output
+    end
+  rescue => e
+    partitions = []
+    perror = e.message.strip
+  end
+-%>
+
+<%-
   cmd = "/usr/bin/sacctmgr show assoc user=$USER -P -n format=account | sort | uniq"
   begin
     output, status = Open3.capture2e(cmd)
@@ -32,7 +47,6 @@
     qerror = e.message.strip
   end
 -%>
-
 
 ---
 
@@ -68,17 +82,21 @@ attributes:
     widget: "select"
     label: "SLURM Partition"
     help: "Choose the name of the SLURM Partition in which you want to launch this Jupyter Server"
+    <%- if perror -%>
+      <span class="text-danger">Error when parsing partitions:</span>
+      ```
+      <%= perror.gsub("\n", "\n     ") %>
+      ```
+    <%- end -%>
+  <%- if partitions.blank? -%>
+    widget: text_field
+  <%- else -%>
+    widget: select
     options:
-      - [ "savio", "savio" ]
-      - [ "savio2", "savio2" ]
-      - [ "savio2_htc", "savio2_htc" ]
-      - [ "savio2_gpu", "savio2_gpu" ]
-      - [ "savio2_1080ti", "savio2_1080ti" ]
-      - [ "savio2_knl", "savio2_knl" ]
-      - [ "savio3", "savio3" ]
-      - [ "savio3_htc", "savio3_htc" ]
-      - [ "savio3_gpu", "savio3_gpu" ]
-      - [ "vector", "vector" ]
+    <%- partitions.each do |q| -%>
+      - [ "<%= q %>", "<%= q %>" ]
+    <%- end -%>
+  <%- end -%>
     required: true
 
   slurm_account:
