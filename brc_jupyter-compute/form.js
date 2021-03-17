@@ -119,6 +119,16 @@ function set_slurm_partition_change_handler() {
   });
 }
 
+/**
+ * Sets the change handler for the slurm account select.
+ */
+function set_slurm_account_change_handler() {
+  const slurm_account = $("#batch_connect_session_context_slurm_account");
+  slurm_account.change(() => {
+    update_available_options();
+  });
+}
+
 function set_available_partitions() {
   const assocs = get_associations();
   const allpartitions = [...new Set(assocs.map(({ partition }) => partition))];
@@ -141,4 +151,5 @@ $(document).ready(function() {
   update_available_options();
 
   set_slurm_partition_change_handler();
+  set_slurm_account_change_handler();
 });
