@@ -2,6 +2,22 @@
 #
 # @note Used to define the submitted cluster, title, description, and
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
+<%-
+  cmd = "/usr/bin/sacctmgr show associations user=$USER -P -n format=partition,account,qos"
+  begin
+    output, status = Open3.capture2e(cmd)
+    if status.success?
+      raw_data = output
+    else
+      raise output
+    end
+  rescue => e
+    qos = []
+    qerror = e.message.strip
+  end
+-%>
+
+
 ---
 
 cluster: "brc"
@@ -9,7 +25,7 @@ cluster: "brc"
 form:
   - job_name
   - slurm_partition
-  - bc_account
+  - slurm_account
   - qos_name
   - num_nodes
   - num_cores
@@ -29,28 +45,19 @@ attributes:
     value: "OOD_batch"
 
   slurm_partition:
-    widget: "select"
     label: "SLURM Partition"
     help: "Choose the name of the SLURM Partition in which you want to launch this Rstudio Server"
-    options:
-      - [ "savio", "savio" ]
-      - [ "savio2", "savio2" ]
-      - [ "savio2_htc", "savio2_htc" ]
-      - [ "savio2_gpu", "savio2_gpu" ]
-      - [ "savio2_1080ti", "savio2_1080ti" ]
-      - [ "savio2_knl", "savio2_knl" ]
-      - [ "savio3", "savio3" ]
-      - [ "savio3_htc", "savio3_htc" ]
-      - [ "savio3_gpu", "savio3_gpu" ]
-      - [ "vector", "vector" ]
+    widget: select
     required: true
 
-  bc_account:
+  slurm_account:
     label: "SLURM Project/Account Name"
+    widget: select
 
   qos_name:
     label: "SLURM QoS Name"
     help: "Most users can leave it black for default assignment, Savio Condo users want to specify their condo QoS name"
+    widget: select
     #value: "savio_normal"
 
   num_nodes:
@@ -70,3 +77,8 @@ attributes:
   user_email:
     label: "Email address (optional)"
     help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."
+
+  raw_data:
+    label: "Account associations for use by JavaScript"
+    widget: hidden_field
+    value: "<%= raw_data %>"

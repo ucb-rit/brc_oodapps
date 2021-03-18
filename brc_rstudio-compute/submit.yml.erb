@@ -41,6 +41,10 @@ script:
    <%- end %>
    <%- end %>
    native:
+     <%- if slurm_account != "" %>
+     - "--account"
+     - "<%= slurm_account %>"
+     <%- end %>
      <%- if user_email != "" %>
      - "--mail-user"
      - "<%= user_email %>"
@@ -49,12 +53,9 @@ script:
      - "--gres"
      - "<%= gres_value %>"
      <%- end %>
-     <%- if slurm_partition == "savio2_gpu" or slurm_partition == "savio2_1080ti" or slurm_partition == "savio3_gpu" or slurm_partition == "savio2_htc" or slurm_partition == "savio2_knl" or slurm_partition == "savio3_htc" %>
-     - "--ntasks-per-node"
+     <%- if num_cores != "" %>
+     - "--ntasks-per-core"
      - "<%= num_cores %>"
-     - "--nodes"
-     - "<%= num_nodes %>"
-     <%- else %>
-     - "--nodes"
-     - "<%= num_nodes %>"
      <%- end %>
+     - "--nodes"
+     - "<%= num_nodes %>"
