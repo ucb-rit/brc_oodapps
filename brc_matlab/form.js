@@ -1,61 +1,156 @@
 'use strict'
 
 /**
- * Fix num cores, allowing blanks to remain
+ *   Toggle the visibility of a form group
+ *  
+ *   @param      {string}    form_id  The form identifier
+ *   @param      {boolean}   show     Whether to show or hide
  */
-function fix_num_cores() {
-  let node_type_input = $('#batch_connect_session_context_node_type');
-  let node_type = node_type_input.val();
-  let num_cores_input = $('#num_cores');
+function toggle_visibility_of_form_group(form_id, show) {
+  let form_element = $(form_id);
+  let parent = form_element.parent();
 
-  if(num_cores_input.val() === '') {
-    return;
-  }
-
-  if(node_type === 'hugemem') {
-    set_ppn_owens_hugemem(num_cores_input);
+  if(show) {
+    parent.show();
   } else {
-    set_ppn_owens_regular(num_cores_input);
+    form_element.val('');
+    parent.hide();
+  }
+}
+
+function get_associations() {
+  const raw_data = $('#batch_connect_session_context_raw_data').val();
+  const assocs = [];
+  for (const assoc of raw_data.split(" ").filter(x => x)) {
+    const [partition, account, qos_list] = assoc.split("|");
+    assocs.push({ partition, account, qos: qos_list.split(",") });
+  }
+  return assocs;
+}
+
+function replace_options($select, new_options) {
+  const old_selection = $select.val();
+  $select.empty();
+  new_options.sort().map(option => $select.append($("<option></option>").attr("value", option).text(option)));
+  if (new_options.includes(old_selection)) {
+    $select.val(old_selection);
   }
 }
 
 /**
- * Sets the PPN limits available for Owens hugemem nodes.
- * 
- * hugemem reservations are always assigned the full node
- *
- * @param      {element}  num_cores_input  The input for num_cores
+ *  Toggle the visibility of the GRES Value field
  */
-function set_ppn_owens_hugemem(num_cores_input) {
-  const NUM_CORES = 48;
-  num_cores_input.attr('max', NUM_CORES);
-  num_cores_input.attr('min', NUM_CORES);
-  num_cores_input.val(NUM_CORES);
+function toggle_gres_value_field_visibility() {
+  let slurm_partition = $("#batch_connect_session_context_slurm_partition");
+  let gpu_partitions = [
+    'savio2_gpu', 'savio2_1080ti', 'savio3_gpu', 'savio3_2080ti'
+  ];
+
+  toggle_visibility_of_form_group(
+    '#batch_connect_session_context_gres_value',
+    gpu_partitions.includes(slurm_partition.val()));
 }
 
 /**
- * Sets the PPN limits available for non hugemem Owens nodes.
- *
- * @param      {element}  num_cores_input  The input for num_cores
+ * Toggle the visibility of the CPU cores field 
  */
-function set_ppn_owens_regular(num_cores_input) {
-  const NUM_CORES = 28;
-  num_cores_input.attr('max', NUM_CORES);
-  num_cores_input.attr('min', 1);
-  num_cores_input.val(Math.min(NUM_CORES, num_cores_input.val()));
+function toggle_cpu_cores_field_visibility() {
+  let slurm_partition = $("#batch_connect_session_context_slurm_partition");
+  let per_core_partitions = [
+    'savio2_gpu', 'savio2_1080ti', 'savio3_gpu', 'savio2_htc', 'savio2_knl', 'savio3_htc', 'savio3_2080ti'
+  ];
+
+  toggle_visibility_of_form_group(
+    '#batch_connect_session_context_num_cores',
+    per_core_partitions.includes(slurm_partition.val()));
+}
+
+/**
+ * Toggle the visibility of the SLURM Account and QOS fields
+ */
+function toggle_slurm_account_qos_fields_visibility() {
+  let slurm_partition = $("#batch_connect_session_context_slurm_partition");
+  let non_account_partition = [ 'vector' ];
+
+  toggle_visibility_of_form_group(
+    '#batch_connect_session_context_slurm_account',
+    !non_account_partition.includes(slurm_partition.val()));
+
+  toggle_visibility_of_form_group(
+    '#batch_connect_session_context_qos_name',
+    !non_account_partition.includes(slurm_partition.val()));
+}
+
+function set_available_accounts() {
+  let assocs = get_associations();
+  const selected_partition = $("#batch_connect_session_context_slurm_partition").val();
+  assocs = assocs.filter(({ partition }) => partition === selected_partition);
+  const accounts = assocs.map(({ account }) => account);
+  replace_options($("#batch_connect_session_context_slurm_account"), accounts);
+}
+
+function set_available_qos() {
+  const assocs = get_associations();
+  const selected_account = $("#batch_connect_session_context_slurm_account").val();
+  const selected_partition = $("#batch_connect_session_context_slurm_partition").val();
+  const allqos = assocs
+    .filter(({ account, partition }) => (account === selected_account && partition === selected_partition))[0].qos;
+  const non_existent_qos = 'normal';
+  const qos = allqos.filter(qos => qos !== non_existent_qos);
+  replace_options($("#batch_connect_session_context_qos_name"), qos);
+}
+
+function update_available_options() {
+  set_available_accounts();
+  set_available_qos();
 }
 
 
 /**
- * Change the maximum number of cores selected.
+ * Sets the change handler for the slurm partition select.
  */
-function set_node_type_change_handler() {
-  let node_type_input = $('#batch_connect_session_context_node_type');
-  node_type_input.change(node_type_input, fix_num_cores);
+function set_slurm_partition_change_handler() {
+  let slurm_partition = $("#batch_connect_session_context_slurm_partition");
+  slurm_partition.change(() => {
+    toggle_gres_value_field_visibility();
+    toggle_cpu_cores_field_visibility();
+    toggle_slurm_account_qos_fields_visibility();
+    update_available_options();
+  });
 }
 
+/**
+ * Sets the change handler for the slurm account select.
+ */
+function set_slurm_account_change_handler() {
+  const slurm_account = $("#batch_connect_session_context_slurm_account");
+  slurm_account.change(() => {
+    update_available_options();
+  });
+}
+
+function set_available_partitions() {
+  const assocs = get_associations();
+  const allpartitions = [...new Set(assocs.map(({ partition }) => partition))];
+  // Skip on partition value of cortex as that is an obsolete partition now
+  const non_existent_partition = 'cortex';
+  const partitions = allpartitions.filter(partition => partition !== non_existent_partition);
+  replace_options($("#batch_connect_session_context_slurm_partition"), partitions);
+}
+
+/**
+ *  Install event handlers
+ */
 $(document).ready(function() {
-  // Set the max value to be what was set in the last session
-  fix_num_cores();
-  set_node_type_change_handler();
+  set_available_partitions();
+  // Ensure that fields are shown or hidden based on what was set in the last session
+  toggle_gres_value_field_visibility();
+  toggle_cpu_cores_field_visibility();
+  toggle_slurm_account_qos_fields_visibility();
+  // Update available options appropriately
+  update_available_options();
+
+  set_slurm_partition_change_handler();
+  set_slurm_account_change_handler();
 });
+
