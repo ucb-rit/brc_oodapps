@@ -1,7 +1,7 @@
 ---
 name: MATLAB
 category: Interactive Apps
-subcategory: Servers
+subcategory: GUIs
 role: batch_connect
 description: |
   This app will launch a [MATLAB] GUI on the [UCB] [Research-IT] Berkeley Research Computing([BRC]) Infrastructure clusters. You will be able to interact with the MATLAB GUI through a VNC session
