@@ -29,7 +29,6 @@ form:
   - slurm_account
   - qos_name
   - num_nodes
-  - num_cores
   - gres_value
   - bc_num_hours
   - user_email
@@ -60,7 +59,7 @@ attributes:
 
   qos_name:
     label: "SLURM QoS Name"
-    help: "Most users can leave it black for default assignment, Savio Condo users want to specify their condo QoS name"
+    help: "Most users can leave it blank for default assignment, Savio Condo users want to specify their condo QoS name"
     widget: select
 
   num_nodes:
@@ -68,14 +67,9 @@ attributes:
     help: "Please specify the number of nodes you want for this Jupyter Server"
     value: 1
 
-  num_cores:
-    label: "Number of CPU cores per Node"
-    help: "Please specify the number of CPU cores you want per node for this Jupyter Server"
-    value: 1
-
   gres_value:
-    label: "Number and type of GPUs"
-    help: "You choose to run in a partition with GPUs. Please specify the GRES value i.e the number and type of GPUs you want for this Jupyter Server"
+    label: "Number of GPUs"
+    help: "You choose to run in a partition with GPUs. Please specify the number and type of GPUs you want for this Jupyter Server."
 
   user_email:
     label: "Email address (optional)"

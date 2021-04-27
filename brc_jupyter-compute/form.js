@@ -113,7 +113,7 @@ function set_slurm_partition_change_handler() {
   let slurm_partition = $("#batch_connect_session_context_slurm_partition");
   slurm_partition.change(() => {
     toggle_gres_value_field_visibility();
-    toggle_cpu_cores_field_visibility();
+    // toggle_cpu_cores_field_visibility();
     toggle_slurm_account_qos_fields_visibility();
     update_available_options();
   });
@@ -145,7 +145,7 @@ $(document).ready(function() {
   set_available_partitions();
   // Ensure that fields are shown or hidden based on what was set in the last session
   toggle_gres_value_field_visibility();
-  toggle_cpu_cores_field_visibility();
+  // toggle_cpu_cores_field_visibility();
   toggle_slurm_account_qos_fields_visibility();
   // Update available options appropriately
   update_available_options();
