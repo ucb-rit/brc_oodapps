@@ -54,7 +54,7 @@ script:
      - "<%= gres_value %>"
      <%- end %>
      <%- if num_cores != "" %>
-     - "--ntasks-per-core"
+     - "--ntasks-per-node"
      - "<%= num_cores %>"
      <%- end %>
      - "--nodes"
