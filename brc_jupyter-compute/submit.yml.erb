@@ -52,10 +52,10 @@ script:
      <%- if gres_value != "" %>
      - "--gres"
      - "gpu:<%= gres_value %>"
-     - "--cpus-per-task"
-     - "<%= gres_value.to_i() * 2 %>"
      <%- end %>
      <%- if num_cores != "" %>
+     - "--cpus-per-task"
+     - "1"
      - "--ntasks-per-node"
      - "<%= num_cores %>"
      <%- end %>
