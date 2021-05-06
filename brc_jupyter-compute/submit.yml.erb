@@ -55,5 +55,9 @@ script:
      - "--cpus-per-task"
      - "<%= gres_value.to_i() * 2 %>"
      <%- end %>
+     <%- if num_cores != "" %>
+     - "--ntasks-per-node"
+     - "<%= num_cores %>"
+     <%- end %>
      - "--nodes"
      - "<%= num_nodes %>"

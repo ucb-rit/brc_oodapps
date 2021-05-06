@@ -29,6 +29,7 @@ form:
   - slurm_account
   - qos_name
   - num_nodes
+  - num_cores
   - gres_value
   - bc_num_hours
   - user_email
@@ -66,6 +67,10 @@ attributes:
     label: "Number of Nodes"
     help: "Please specify the number of nodes you want for this Jupyter Server"
     value: 1
+
+  num_cores:
+    label: "Number of CPU cores per Node"
+    help: "Please specify the number of CPU cores you want per node for this Jupyter Server"
 
   gres_value:
     label: "Number of GPUs"
