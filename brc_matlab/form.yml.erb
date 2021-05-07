@@ -1,3 +1,7 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+#   hard-coded/user-defined attributes that make up this Batch Connect app.
 <%-
   cmd = "/usr/bin/sacctmgr show associations user=$USER -P -n format=partition,account,qos"
   begin
@@ -14,27 +18,26 @@
 -%>
 
 ---
-cluster:
-  - "brc"
-#cacheable: "false"
+
+cluster: "brc"
 
 form:
-  - job_name
   - versions
-  - node_type
+  - job_name
   - slurm_partition
   - slurm_account
   - qos_name
-  - num_hours
-  - num_cpu
-  - bc_vnc_resolution
+  - num_nodes
   - num_cores
-  - num_gpus
+  - gres_value
+  - bc_num_hours
+  - user_email
   - raw_data
-  - bc_email_on_started
+  - node_type
 
 attributes:
- # node_type: "GPU"  
+
+  # node_type: "GPU"  
   node_type: "CPU"
 
   job_name:
@@ -52,15 +55,24 @@ attributes:
       - [ "R2017b", "matlab/r2017b" ]
       - [ "R2016b", "matlab/r2016b" ]
      
-  slurm_partition: 
-    widget: select 
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "How many hours do you want to run this Jupyter Server for?"
+    value: 1
+
+  job_name:
+    label: "Name of the job"
+    value: "OOD_batch"
+
+  slurm_partition:
     label: "SLURM Partition"
-    help: "Choose the name of the SLURM Partition in which you want to launch this MatLab Server"
+    help: "Choose the name of the SLURM Partition in which you want to launch this Jupyter Server"
+    widget: select
     required: true
 
   slurm_account:
     label: "SLURM Project/Account Name"
-    help: "You can't leave this blank."
     widget: select
 
   qos_name:
@@ -68,44 +80,23 @@ attributes:
     help: "Please choose the specific QoS you want run under. Most users choose savio_normal. Savio Condo users want to specify their condo QoS name or savio_lowprio"
     widget: select
 
-  bc_vnc_resolution:
-    required: true
- 
-  num_cpu:
-    label: "Number of CPU Nodes"
-    help: "Please specify number of CPU nodes"
+  num_nodes:
+    label: "Number of Nodes"
+    help: "Please specify the number of nodes you want for this Jupyter Server"
     value: 1
-    max: 10
-    step: 1
 
-  num_hours:
-    widget: "number_field"
-    label: "Wall Clock Time"
-    help: "How many hours do you want to run this MatLab?"
-    value: 1
-    min: 1
-    max: 144
-    step: 1
-    id: 'num_hours'
-
- 
   num_cores:
-    widget: "number_field"
-    label: "Number of cores if the cluster is SHARED"
+    label: "Number of CPU cores per Node"
+    help: "Please specify the number of CPU cores you want per node for this Jupyter Server"
     value: 1
-    min: 0
-    max: 48
-    step: 1
-    id: 'num_cores'
 
-  num_gpus:
-    widget: "number_field"
-    label: "Number of GPUs if a GPU partition is requested"
-    value: 1
-    min: 0
-    max: 8
-    step: 1
-    id: 'num_gpus'
+  gres_value:
+    label: "Number and type of GPUs"
+    help: "You choose to run in a partition with GPUs. Please specify the GRES value i.e the number and type of GPUs you want for this Jupyter Server"
+
+  user_email:
+    label: "Email address (optional)"
+    help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."
 
   raw_data:
     label: "Account associations for use by JavaScript"
