@@ -58,7 +58,7 @@ attributes:
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "How many hours do you want to run this Jupyter Server for?"
+    help: "How many hours do you want to run Matlab" 
     value: 1
 
   job_name:
@@ -67,7 +67,7 @@ attributes:
 
   slurm_partition:
     label: "SLURM Partition"
-    help: "Choose the name of the SLURM Partition in which you want to launch this Jupyter Server"
+    help: "Choose the name of the SLURM Partition in which you want to launch MatLab" 
     widget: select
     required: true
 
@@ -82,18 +82,18 @@ attributes:
 
   num_nodes:
     label: "Number of Nodes"
-    help: "Please specify the number of nodes you want for this Jupyter Server"
+    help: "Please specify the number of nodes you want for Matlab" 
     value: 1
 
   num_cores:
     label: "Number of CPU cores per Node"
-    help: "Please specify the number of CPU cores you want per node for this Jupyter Server"
+    help: "Please specify the number of CPU cores you want per node for MatLab" 
     value: 1
 
   gres_value:
     label: "Number and type of GPUs"
-    help: "You choose to run in a partition with GPUs. Please specify the GRES value i.e the number and type of GPUs you want for this Jupyter Server"
-
+    help: "You choose to run in a partition with GPUs. Please specify the GRES value i.e the number and type of GPUs you like to use"
+  
   user_email:
     label: "Email address (optional)"
     help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."
