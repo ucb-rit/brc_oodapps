@@ -13,5 +13,5 @@ attributes:
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "How many hours do you want to run this VS Code Server for ?"
+    help: "The maximum number of hours your VS Code Server will run for."
     value: 1

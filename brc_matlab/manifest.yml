@@ -4,7 +4,7 @@ category: Interactive Apps
 subcategory: GUIs
 role: batch_connect
 description: |
-  This app will launch a [MATLAB] GUI on the [UCB] [Research-IT] Berkeley Research Computing([BRC]) Infrastructure clusters. You will be able to interact with the MATLAB GUI through a VNC session
+  This app will launch a [MATLAB] Desktop session within a VNC session on the Berkeley Research Computing([BRC]) Savio cluster. 
   [MATLAB]: https://www.mathworks.com/products/matlab.html
   [UCB]: https://www.berkeley.edu/
   [Research-IT]: https://research-it.berkeley.edu/

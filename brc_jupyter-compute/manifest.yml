@@ -1,10 +1,10 @@
 ---
-name: Jupyter Server - compute in batch queues
+name: Jupyter Server - compute via Slurm using Savio partitions
 category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch a [Jupyter] server using [Python] on the [UCB] [Research-IT] Berkeley Research Computing([BRC]) Infrastructure clusters.
+  This app will launch a [Jupyter] server session on the Berkeley Research Computing([BRC]) Savio cluster.
 
   [Jupyter]: https://jupyter.org/
   [Python]: https://www.python.org/

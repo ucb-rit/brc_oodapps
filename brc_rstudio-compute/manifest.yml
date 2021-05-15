@@ -1,10 +1,10 @@
 ---
-name: RStudio Server - compute in batch queues
+name: RStudio Server - compute via Slurm using Savio partitions
 category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch a [RStudio Server] an IDE for [R] on the [UCB] [Research-IT] Berkeley Research Computing([BRC]) Infrastructure clusters.
+  This app will launch an [RStudio] (an IDE for [R]) session on the Berkeley Research Computing([BRC]) Savio cluster.
 
   [RStudio Server]: https://www.rstudio.com/products/rstudio-server/
   [R]: https://www.r-project.org/
