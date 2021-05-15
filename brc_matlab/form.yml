@@ -19,13 +19,13 @@ attributes:
   node_type: "CPU"
   
   job_name:
-    label: "Name of the job"
-    value: "OOD_MatLab_"
+    label: "Name of the Job"
+    value: "OOD_MATLAB"
 
   versions:
     widget: select
-    label: "MATLAB Versions"
-    help: "This defines the version of MATLAB to load."
+    label: "MATLAB Version"
+    help: "The version of MATLAB used."
     options:
       - [ "R2020b", "matlab/r2020b" ]
       - [ "R2020a", "matlab/r2020a" ]
@@ -36,7 +36,7 @@ attributes:
   slurm_partition: 
     widget: "select"
     label: "SLURM Partition"
-    help: "Choose the name of the SLURM Partition in which you want to launch this MatLab Server"
+    help: "The SLURM Partition in which you want to launch your MATLAB session."
     options:
       - [ "savio", "savio" ]
       - [ "savio2", "savio2" ]
@@ -51,21 +51,21 @@ attributes:
     required: true
 
   bc_account:
-    label: "SLURM Project/Account Name"
-    help: "You can't leave this blank."
+    label: "SLURM Account/Project Name"
+    help: "The SLURM account (i.e., the value of the -A or --account flag used when submitting a SLURM job)."
 
   qos_name:
     label: "SLURM QoS Name"
-    help: "Please choose the specific QoS you want run under. Most users choose savio_normal. Savio Condo users want to specify their condo QoS name or savio_lowprio"
+    help: "The QoS you want run under. Most FCA users choose savio_normal. Condo users can either use their condo QoS or the low-priority QoS."
  
   bc_num_slots:
-    label: "Number of CPU Nodes"
-    help: "Please specify number of CPU nodes"
+    label: "Number of Compute Nodes"
+    help: "The number of nodes you want for your MATLAB session."
     value: 1
     max: 10
     step: 1
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "How many hours do you want to run this MatLab?"
+    help: "The maximum number of hours your MATLAB session will run for. To save FCA credits or free up resources for your condo group members, you should delete your session when you are done."
     value: 1
