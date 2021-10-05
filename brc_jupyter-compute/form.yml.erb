@@ -41,44 +41,45 @@ attributes:
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "How many hours do you want to run this Jupyter Server for?"
+    help: "The maximum number of hours your Jupyter session will run for. To save FCA credits or free up resources for your condo group members, you should delete your session when you are done."
     value: 1
 
   job_name:
-    label: "Name of the job"
-    value: "OOD_batch"
+    label: "Name of the Job"
+    value: "OOD_Jupyter"
 
   slurm_partition:
     label: "SLURM Partition"
-    help: "Choose the name of the SLURM Partition in which you want to launch this Jupyter Server"
+    help: "The SLURM Partition in which you want to launch this Jupyter session."
     widget: select
     required: true
 
   slurm_account:
-    label: "SLURM Project/Account Name"
+    label: "SLURM Account/Project Name"
+    help: "The SLURM account (i.e., the value of the -A or --account flag used when submitting a SLURM job)."
     widget: select
 
   qos_name:
     label: "SLURM QoS Name"
-    help: "Please choose the specific QoS you want run under. Most users choose savio_normal. Savio Condo users want to specify their condo QoS name or savio_lowprio"
+    help: "The QoS you want run under. Most FCA users choose savio_normal. Condo users can either use their condo QoS or the low-priority QoS."
     widget: select
 
   num_nodes:
-    label: "Number of Nodes"
-    help: "Please specify the number of nodes you want for this Jupyter Server"
+    label: "Number of Compute Nodes"
+    help: "The number of nodes you want for your Jupyter session."
     value: 1
 
   num_cores:
-    label: "Number of CPU cores per Node"
-    help: "Please specify the number of CPU cores you want per node for this Jupyter Server"
+    label: "Number of CPU Cores per Node"
+    help: "The number of CPU cores you want per node for your Jupyter session."
     value: 1
 
   gres_value:
-    label: "Number and type of GPUs"
-    help: "You choose to run in a partition with GPUs. Please specify the GRES value i.e the number and type of GPUs you want for this Jupyter Server"
+    label: "Number and Type of GPUs"
+    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. Remember to specify two CPUs for each GPU in the 'Number of CPU Cores per Node' field."
 
   user_email:
-    label: "Email address (optional)"
+    label: "Email Address (Optional)"
     help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."
 
   raw_data:

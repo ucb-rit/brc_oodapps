@@ -4,7 +4,7 @@ category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch a [VS Code] server using [Code Server] on the [UCB] [Research-IT] Berkeley Research Computing ([BRC]) Infrastructure. 
+  This app will launch a [VS Code] server using [Code Server] on the Berkeley Research Computing ([BRC]) infrastructure. 
 
   [VS Code]: https://code.visualstudio.com
   [Code Server]: https://github.com/cdr/code-server
