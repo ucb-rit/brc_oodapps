@@ -109,8 +109,6 @@ function set_max_time() {
   }
 }
 
-//const mx = $("#batch_connect_session_context_bc_num_hours").attr("max");
-
 function update_available_options() {
   set_available_accounts();
   set_available_qos();
