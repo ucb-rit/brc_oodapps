@@ -13,6 +13,14 @@ Dir:
 
 Owned by root, run git fetch to update.  use 'main' branch.
 
+OOD server log: TBD
+
+tag the commit being deployed, for easy reverting, etc.
+
+    git tag -a prod2021_1005 502a268 -m "production_2021_10_05"
+    git tag -a prod2021_0924 9c7245e -m "production_2021_09_24"
+
+
 
 For dev env
 -----------
