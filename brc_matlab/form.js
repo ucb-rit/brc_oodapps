@@ -100,9 +100,19 @@ function set_available_qos() {
   replace_options($("#batch_connect_session_context_qos_name"), qos);
 }
 
+function set_max_time() {
+  const selected_qos = $("#batch_connect_session_context_qos_name").val();
+  if (selected_qos === "savio_debug") {
+    $("#batch_connect_session_context_bc_num_hours").attr("max", 1);
+  } else {
+    $("#batch_connect_session_context_bc_num_hours").attr("max", "");
+  }
+}
+
 function update_available_options() {
   set_available_accounts();
   set_available_qos();
+  set_max_time();  
 }
 
 
@@ -118,6 +128,17 @@ function set_slurm_partition_change_handler() {
     update_available_options();
   });
 }
+
+/**
+ * Sets the change handler for the slurm qos select.
+ */
+function set_slurm_qos_change_handler() {
+  let slurm_qos = $("#batch_connect_session_context_qos_name");
+  slurm_qos.change(() => {
+    update_available_options();
+  });
+}
+
 
 /**
  * Sets the change handler for the slurm account select.
@@ -151,6 +172,7 @@ $(document).ready(function() {
   update_available_options();
 
   set_slurm_partition_change_handler();
+  set_slurm_qos_change_handler();
   set_slurm_account_change_handler();
 });
 
