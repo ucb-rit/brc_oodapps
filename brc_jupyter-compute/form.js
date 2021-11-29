@@ -103,6 +103,7 @@ function set_available_qos() {
 function set_max_time() {
   const selected_qos = $("#batch_connect_session_context_qos_name").val();
   if (selected_qos === "savio_debug") {
+    $("#batch_connect_session_context_bc_num_hours").val(1);
     $("#batch_connect_session_context_bc_num_hours").attr("max", 1);
   } else {
     $("#batch_connect_session_context_bc_num_hours").attr("max", "");
