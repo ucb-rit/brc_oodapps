@@ -1,0 +1,25 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+#   hard-coded/user-defined attributes that make up this Batch Connect app.
+---
+
+cluster: "brc_jupyter_lha"
+
+form:
+  - Rserver
+  - Rapp
+  - Rspatial
+  - R_major_version
+  - bc_num_hours
+
+attributes:
+  Rserver: "rstudio-server/1.3.1093"
+  Rapp: "r/4.0.3"
+  Rspatial: "r-spatial/2021-02-05-r40"
+  R_major_version: "4.0"
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "The maximum number of hours your RStudio session will run for."
+    value: 1

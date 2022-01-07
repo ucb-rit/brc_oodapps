@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+module purge
+
+# load RStudio Server
+module load <%= context.Rserver %>  # rstudio-server/1.3.1093
+
+# load R
+module load <%= context.Rapp %>  # r/4.0.3
+
+# Free RStudio Server does not support use of R_LIBS_SITE:
+# https://community.rstudio.com/t/rstudio-server-pro-and-r-libs-site-works-but-not-on-the-free-version-not-supported/83514
+# but when we run rsession below, we can hack it in via --r-libs-user, in addition to R_LIBS_USER
+module load r-packages
+module load <%= context.Rspatial %>   # r-spatial/2021-02-05-r40
+
+# R_LIBS_USER will generally be empty
+if [ "$R_LIBS_USER" = "" ]; then
+    R_LIBS_USER=${HOME}/R/x86_64-pc-linux-gnu-library/<%= context.R_major_version %>
+fi
+
+echo "R_LIBS_USER:=${R_LIBS_USER}"
+
+#
+# Start RStudio Server
+#
+
+# PAM auth helper used by RStudio
+export RSTUDIO_AUTH="${PWD}/bin/auth"
+
+# Generate an `rsession` wrapper script
+export RSESSION_WRAPPER_FILE="${PWD}/rsession.sh"
+(
+umask 077
+sed 's/^ \{2\}//' > "${RSESSION_WRAPPER_FILE}" << EOL
+  #!/usr/bin/env bash
+
+  # Log all output from this script
+  export RSESSION_LOG_FILE="${PWD}/rsession.log"
+  exec &>>"\${RSESSION_LOG_FILE}"
+
+  # Launch the original command
+  echo "Launching rsession..."
+  set -x
+  exec rsession --r-libs-user "${R_LIBS_USER}:${R_LIBS_SITE}" "\${@}"
+EOL
+)
+chmod 700 "${RSESSION_WRAPPER_FILE}"
+
+# Set working directory to home directory
+cd "${HOME}"
+
+# Create a unique $TMPDIR for runtime files
+export TMPDIR="$(mktemp -d)"
+
+echo "TMPDIR:=n0003@testbed0:${TMPDIR}"
+
+# Output debug info
+# module list
+
+# Launch the RStudio Server
+echo "Starting up rserver..."
+set -x
+rserver \
+  --www-port ${port} \
+  --auth-none 0 \
+  --auth-pam-helper-path "${RSTUDIO_AUTH}" \
+  --auth-encrypt-password 0 \
+  --rsession-path "${RSESSION_WRAPPER_FILE}" \
+  --server-data-dir $TMPDIR \
+  --secure-cookie-key-file "$TMPDIR/rstudio-server/secure-cookie-key" 
+
+
