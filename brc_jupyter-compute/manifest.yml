@@ -4,7 +4,7 @@ category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch a [Jupyter] server session on the Berkeley Research Computing([BRC]) Savio cluster.
+  This app will launch a [Jupyter] server session on the Berkeley Research Computing ([BRC]) Savio cluster.
 
   [Jupyter]: https://jupyter.org/
   [Python]: https://www.python.org/
