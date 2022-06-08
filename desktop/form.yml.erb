@@ -1,0 +1,75 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+#   hard-coded/user-defined attributes that make up this Batch Connect app.
+<%-
+  cmd = "/usr/bin/sacctmgr show associations user=$USER partition=savio2_htc -P -n format=partition,account,qos"
+  begin
+    output, status = Open3.capture2e(cmd)
+    if status.success?
+      raw_data = output
+    else
+      raise output
+    end
+  rescue => e
+    qos = []
+    qerror = e.message.strip
+  end
+-%>
+
+---
+
+cluster: "brc"
+
+form:
+  - desktop
+  - job_name
+  - slurm_partition
+  - slurm_account
+  - qos_name
+  - num_cores
+  - bc_num_hours
+  - user_email
+  - raw_data
+  - node_type
+
+attributes:
+  desktop: "xfce"
+  node_type: "CPU"
+  
+  job_name:
+    label: "Name of the job"
+    value: "desktop_"
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "How many hours do you want to run desktop"
+    value: 1
+
+  slurm_partition: 
+    label: "Partition"
+    widget: select
+
+  slurm_account:
+    label: "SLURM Project/Account Name"
+    widget: select
+
+  qos_name:
+    label: "SLURM QoS Name"
+    help: "Please choose the specific QoS you want run under. Most users choose savio_normal. Savio Condo users want to specify their condo QoS name or savio_lowprio"
+    widget: select
+
+  num_cores:
+    label: "Number of CPU cores per Node"
+    help: "Please specify the number of CPU cores needed to launch your desktop application"
+    value: 1
+    max: 12
+
+  user_email:
+    label: "Email address (optional)"
+    help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."
+
+  raw_data:
+    label: "Account associations for use by JavaScript"
+    widget: hidden_field
+    value: "<%= raw_data %>"

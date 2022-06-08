@@ -1,0 +1,10 @@
+---
+name: Desktop
+icon: fa://desktop
+category: Interactive Apps
+subcategory: Desktops
+role: batch_connect
+description: |
+  This app will launch an interactive desktop on the Berkeley Research Computing([Research-IT]) at UC Berkeley ([BRC]) Savio cluster. You can launch GUI applications once your desktop is ready.
+  [Research-IT]: https://research-it.berkeley.edu/
+  [BRC]: https://research-it.berkeley.edu/programs/berkeley-research-computing
