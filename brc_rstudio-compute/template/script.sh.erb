@@ -3,16 +3,16 @@
 module purge
 
 # load RStudio Server
-module load <%= context.Rserver %>  # rstudio-server/1.3.1093
+module load <%= context.Rserver %>  
 
 # load R
-module load <%= context.Rapp %>  # r/4.0.3
+module load <%= context.Rapp %>  
 
 # Free RStudio Server does not support use of R_LIBS_SITE:
 # https://community.rstudio.com/t/rstudio-server-pro-and-r-libs-site-works-but-not-on-the-free-version-not-supported/83514
 # but when we run rsession below, we can hack it in via --r-libs-user, in addition to R_LIBS_USER
 module load r-packages
-module load <%= context.Rspatial %>   # r-spatial/2021-02-05-r40
+module load <%= context.Rspatial %>   
 
 # R_LIBS_USER will generally be empty
 if [ "$R_LIBS_USER" = "" ]; then
