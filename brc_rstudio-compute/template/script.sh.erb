@@ -2,11 +2,12 @@
 
 module purge
 
+# load R (before RStudio as RStudio module needs ${R_DIR} set)
+module load <%= context.Rapp %>  
+
 # load RStudio Server
 module load <%= context.Rserver %>  
 
-# load R
-module load <%= context.Rapp %>  
 
 # Free RStudio Server does not support use of R_LIBS_SITE:
 # https://community.rstudio.com/t/rstudio-server-pro-and-r-libs-site-works-but-not-on-the-free-version-not-supported/83514
@@ -47,6 +48,18 @@ EOL
 )
 chmod 700 "${RSESSION_WRAPPER_FILE}"
 
+# Generate a database.conf file
+export DBCONF="${PWD}/database.conf"
+(
+umask 077
+sed 's/^ \{2\}//' > "${DBCONF}" << EOL
+  # set database location
+  provider=sqlite
+  directory=/tmp/rstudio-server/db
+EOL
+)
+chmod 700 "${DBCONF}"
+
 # Set working directory to home directory
 cd "${HOME}"
 
@@ -61,9 +74,11 @@ echo "Starting up rserver..."
 set -x
 rserver \
   --www-port ${port} \
-  --auth-none 0 \
+  --auth-none 1 \
   --auth-pam-helper-path "${RSTUDIO_AUTH}" \
   --auth-encrypt-password 0 \
   --rsession-path "${RSESSION_WRAPPER_FILE}" \
   --server-data-dir "${TMPDIR}" \
-  --secure-cookie-key-file "${TMPDIR}/rstudio-server/secure-cookie-key"
+  --secure-cookie-key-file "${TMPDIR}/rstudio-server/secure-cookie-key" \
+  --database-config-file "${DBCONF}" \
+  --server-user $(whoami) 
