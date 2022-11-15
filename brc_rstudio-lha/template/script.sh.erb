@@ -47,6 +47,11 @@ EOL
 )
 chmod 700 "${RSESSION_WRAPPER_FILE}"
 
+# Create a unique $TMPDIR for runtime files
+export TMPDIR="$(mktemp -d)"
+
+echo "TMPDIR:=$(hostname):${TMPDIR}"
+
 # Generate a database.conf file
 export DBCONF="${PWD}/database.conf"
 (
@@ -54,7 +59,7 @@ umask 077
 sed 's/^ \{2\}//' > "${DBCONF}" << EOL
   # set database location
   provider=sqlite
-  directory=/tmp/rstudio-server/db
+  directory=${TMPDIR}/rstudio-server/db
 EOL
 )
 chmod 700 "${DBCONF}"
@@ -62,10 +67,6 @@ chmod 700 "${DBCONF}"
 # Set working directory to home directory
 cd "${HOME}"
 
-# Create a unique $TMPDIR for runtime files
-export TMPDIR="$(mktemp -d)"
-
-echo "TMPDIR:=n0003@testbed0:${TMPDIR}"
 
 # Output debug info
 # module list
