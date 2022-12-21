@@ -16,9 +16,9 @@ This provides an RStudio Server app tailored for BRC that uses the system R (and
 
 These comments indicate what needs to be done for the Savio RStudio app relative to the template provided in the [MCW app](https://github.com/mcw-rcc/bc_rcc_rstudio_server).
 
-1. Install RStudio Server in a module, as shown in the consultsw module farm, at `scripts/rstudio-server/2022.07.2-576`. Note that just dumps the binaries from the rpm onto the filesystem. 
+1. Install RStudio Server in a module, as shown in the consultsw module farm, at `scripts/rstudio-server/2022.12.0-353`. Note that just dumps the binaries from the rpm onto the filesystem. 
 2. As of version 1.4 (I think) RStudio Server needs to dynamically link to a Postgres library, libpq (64-bit version). The HPCS team installs this in `/global/software/sl-7.x86_64/modules/langs/r/${R_VERSION}/postgres-lib64`.
-3. Modify `template/script.sh.erb` as needed for `rserver` and `rsession` processes to start. For `2022.07.2-576` we need to set `--auth-none 1` (to avoid RStudio prompting user to provide username/password), `-database-config-file "${DBCONF}"` (and associated stanza earlier to set `${DBCONF}`) and `--server-user $(whoami)` (so `rserver` doesn't try to run as non-existent `rstudio-server` user.
+3. Modify `template/script.sh.erb` as needed for `rserver` and `rsession` processes to start. For `2022.12.0-353` we need to set `--auth-none 1` (to avoid RStudio prompting user to provide username/password), `-database-config-file "${DBCONF}"` (and associated stanza earlier to set `${DBCONF}`) and `--server-user $(whoami)` (so `rserver` doesn't try to run as non-existent `rstudio-server` user.
 4. Modify `template/script.sh.erb` to load modules and set R library search path details.
 5. Make sure that `template/bin/auth` uses `-lt` as discussed [here](https://discourse.osc.edu/t/rstudio-server-app-using-non-local-r/1223/3).
 6. Modify `form.yml.erb` to build on existing Savio RStudio OOD config to reflect the Savio config. Set variables for the versions of RStudio Server, R, and R-spatial.
