@@ -4,7 +4,7 @@ category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch an [RStudio] (an IDE for [R]) session on the Berkeley Research Computing([BRC]) Savio cluster, using R 4.2.1.
+  This app will launch an [RStudio] (an IDE for [R]) session on the Berkeley Research Computing([BRC]) Savio cluster, using R 4.2.1 (or optionally a previous version of your choice).
 
   [RStudio]: https://www.rstudio.com/products/rstudio/
   [R]: https://www.r-project.org/
