@@ -25,8 +25,6 @@ cluster: "brc"
 form:
   - Rserver
   - Rapp
-  - Rspatial
-  - R_major_version
   - job_name
   - slurm_partition
   - slurm_account
@@ -39,10 +37,15 @@ form:
   - raw_data
 
 attributes:
-  Rserver: "rstudio-server/1.3.1093"
-  Rapp: "r/4.0.3"
-  Rspatial: "r-spatial/2021-02-05-r40"
-  R_major_version: "4.0"
+  Rserver: "rstudio-server/2022.12.0-353"
+
+  Rapp:
+    widget: select
+    label: "R Version"
+    options:
+      - [ "4.2.1", "r/4.2.1" ]
+      - [ "4.0.3", "r/4.0.3" ]
+
 
   bc_num_hours:
     label: "Wall Clock Time"
@@ -55,7 +58,7 @@ attributes:
 
   slurm_partition:
     label: "SLURM Partition"
-    help: "The SLURM Partition in which you want to launch your RStudio session. For R code that will not run in parallel, savio2_htc is a good choice."
+    help: "The SLURM Partition in which you want to launch your RStudio session. For code that is not parallelized (or using only a small number of CPU cores), the HTC partitions are a good choice."
     widget: select
     required: true
 

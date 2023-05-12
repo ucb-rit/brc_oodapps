@@ -1,14 +1,19 @@
 <%-
   ppn = num_cores.blank? ? 20 : num_cores.to_i
   walltime = (bc_num_hours.to_i * 60)
-  memory = (ppn.to_i * 10600) 
+  memory = (ppn.to_i * 10600)
   
   if slurm_partition.include?("gpu")
      node_type = "GPU"
   else
      node_type = "CPU"
   end
-  
+
+  if slurm_partition.include?("refmlab")
+     memory = (ppn.to_i * 9000)
+  end
+
+
   case node_type
   when "CPU"
    slurm_args = ["--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}","--mem" , "#{memory}" ]

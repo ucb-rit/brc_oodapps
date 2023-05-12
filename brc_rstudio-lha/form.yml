@@ -9,15 +9,17 @@ cluster: "brc_jupyter_lha"
 form:
   - Rserver
   - Rapp
-  - Rspatial
-  - R_major_version
   - bc_num_hours
 
 attributes:
-  Rserver: "rstudio-server/1.3.1093"
-  Rapp: "r/4.0.3"
-  Rspatial: "r-spatial/2021-02-05-r40"
-  R_major_version: "4.0"
+  Rserver: "rstudio-server/2022.12.0-353"
+
+  Rapp:
+    widget: select
+    label: "R Version"
+    options:
+      - [ "4.2.1", "r/4.2.1" ]
+      - [ "4.0.3", "r/4.0.3" ]
 
   bc_num_hours:
     label: "Wall Clock Time"
