@@ -9,15 +9,20 @@
      node_type = "CPU"
   end
 
-  if slurm_partition.include?("refmlab")
-     memory = (ppn.to_i * 9000)
+  if slurm_partition.include?("htc")
+     htc = "TRUE"
+  else htc = "FALSE"
   end
 
 
   case node_type
   when "CPU"
-   slurm_args = ["--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}","--mem" , "#{memory}" ]
- 
+    case htc
+    when "TRUE"
+slurm_args = ["--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}","--mem" , "#{memory}" ]
+    when "FALSE" 
+    slurm_args = [ "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}","--exclusive"  , "--nodes", "1"]
+    end
   end
 %>
 ---

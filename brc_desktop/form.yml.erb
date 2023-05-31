@@ -3,7 +3,7 @@
 # @note Used to define the submitted cluster, title, description, and
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
 <%-
-  cmd = "/usr/bin/sacctmgr show associations user=$USER partition=savio2_htc,refmlab -P -n format=partition,account,qos"
+  cmd = "/usr/bin/sacctmgr show associations user=$USER partition=savio2_htc,savio3,savio3_htc,savio2_knl,savio4_htc -P -n format=partition,account,qos"
   begin
     output, status = Open3.capture2e(cmd)
     if status.success?
