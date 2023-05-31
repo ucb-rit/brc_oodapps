@@ -49,6 +49,7 @@ attributes:
     label: "MATLAB Versions"
     help: "The version of MATLAB used."
     options:
+      - [ "R2023a", "matlab/r2023a" ]
       - [ "R2022a", "matlab/r2022a" ]
       - [ "R2021a", "matlab/r2021a" ]
       - [ "R2020b", "matlab/r2020b" ]
@@ -93,8 +94,8 @@ attributes:
     value: 1
 
   gres_value:
-    label: "Number and Type of GPUs"
-    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. Remember to specify two CPUs for each GPU in the 'Number of CPU Cores per Node' field."
+    label: "Type and number of GPUs"
+    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. Remember to specify two CPUs for each GPU in the 'Number of CPU Cores per Node' field. e.g.: gpu:K80:1(savio2_gpu) and gpu:GTX2080TI:1, gpu:TITAN:1, gpu:A40:1, gpu:V100:1 (savio3_gpu)"
   
   user_email:
     label: "Email Address (Optional)"
