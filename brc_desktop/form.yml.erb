@@ -3,7 +3,7 @@
 # @note Used to define the submitted cluster, title, description, and
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
 <%-
-  cmd = "/usr/bin/sacctmgr show associations user=$USER partition=savio2_htc,savio3,savio3_htc,savio2_knl,savio4_htc -P -n format=partition,account,qos"
+  cmd = "/usr/bin/sacctmgr show associations user=$USER partition=savio2_htc,savio3,savio3_htc,savio2_knl,savio4_htc,savio2_gpu,savio3_gpu -P -n format=partition,account,qos"
   begin
     output, status = Open3.capture2e(cmd)
     if status.success?
@@ -27,11 +27,12 @@ form:
   - slurm_partition
   - slurm_account
   - qos_name
+  - gres_value
   - num_cores
   - bc_num_hours
   - user_email
   - raw_data
-  - node_type
+  - node_type  
 
 attributes:
   desktop: "xfce"
@@ -61,11 +62,14 @@ attributes:
     help: "The QoS you want run under. Most FCA users choose savio_normal. Condo users can either use their condo QoS or the low-priority QoS."
     widget: select
 
+  gres_value:
+    label: "Type and number of GPUs"
+    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. savio2_gpu:(gpu:K80:1) and savio3_gpu:(gpu:GTX2080TI:1 or gpu:TITAN:1, gpu:A40:1, gpu:V100:1)"
+
   num_cores:
-    label: "Number of CPU Cores"
-    help: "The number of CPU cores you want for your Desktop session (max=12)."
+    label: "Number of CPU Cores per Node"
+    help: "The number of CPU cores for Matlab. With GPU option, CPU  core# depends on gpu type. [V100:1->4 CPU cores], [gtxA2080ti:1->2 CPU cores], [A40:1->8 CPU cores], [K80:1->2]" 
     value: 1
-    max: 12
 
   user_email:
     label: "Email Address (optional)"

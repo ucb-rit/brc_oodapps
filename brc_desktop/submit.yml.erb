@@ -1,28 +1,19 @@
 <%-
   ppn = num_cores.blank? ? 20 : num_cores.to_i
   walltime = (bc_num_hours.to_i * 60)
-  memory = (ppn.to_i * 10600)
-  
+ 
   if slurm_partition.include?("gpu")
      node_type = "GPU"
   else
      node_type = "CPU"
   end
-
-  if slurm_partition.include?("htc")
-     htc = "TRUE"
-  else htc = "FALSE"
-  end
-
-
+  
   case node_type
   when "CPU"
-    case htc
-    when "TRUE"
-slurm_args = ["--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}","--mem" , "#{memory}" ]
-    when "FALSE" 
-    slurm_args = [ "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}","--exclusive"  , "--nodes", "1"]
-    end
+    slurm_args = [ "--nodes", "1", "--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}"]
+  when "GPU"
+    slurm_args = [ "--nodes", "1",  "--ntasks", "#{ppn}", "--partition", "#{slurm_partition}", "--time", "#{walltime}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}", "--gres", "#{gres_value}"]
+    
   end
 %>
 ---
