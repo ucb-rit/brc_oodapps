@@ -27,9 +27,8 @@ form:
   - slurm_partition
   - slurm_account
   - qos_name
-  - num_nodes
-  - num_cores
   - gres_value
+  - num_cores
   - bc_num_hours
   - user_email
   - raw_data
@@ -83,20 +82,15 @@ attributes:
     help: "The QoS you want run under. Most FCA users choose savio_normal. Condo users can either use their condo QoS or the low-priority QoS."
     widget: select
 
-  num_nodes:
-    label: "Number of Compute Nodes"
-    help: "The number of nodes you want for your MATLAB session."
-    value: 1
+  gres_value:
+    label: "Type and number of GPUs"
+    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. savio2_gpu:(gpu:K80:1) and savio3_gpu:(gpu:GTX2080TI:1 or gpu:TITAN:1, gpu:A40:1, gpu:V100:1)"
 
   num_cores:
     label: "Number of CPU Cores per Node"
-    help: "The number of CPU cores you want per node for your MATLAB session."
+    help: "The number of CPU cores for Matlab. With GPU option, CPU  core# depends on gpu type. [V100:1->4 CPU cores], [gtxA2080ti:1->2 CPU cores], [A40:1->8 CPU cores]"
     value: 1
 
-  gres_value:
-    label: "Type and number of GPUs"
-    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. Remember to specify two CPUs for each GPU in the 'Number of CPU Cores per Node' field. e.g.: gpu:K80:1(savio2_gpu) and gpu:GTX2080TI:1, gpu:TITAN:1, gpu:A40:1, gpu:V100:1 (savio3_gpu)"
-  
   user_email:
     label: "Email Address (Optional)"
     help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."

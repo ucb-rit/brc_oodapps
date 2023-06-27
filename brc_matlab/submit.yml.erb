@@ -1,6 +1,5 @@
 <%-
   ppn = num_cores.blank? ? 20 : num_cores.to_i
-  #gpu = num_gpus.blank? ? 1 : num_gpus.to_i
   walltime = (bc_num_hours.to_i * 60)
  
   if slurm_partition.include?("gpu")
@@ -11,9 +10,9 @@
   
   case node_type
   when "CPU"
-    slurm_args = [ "--nodes", "#{num_nodes}", "--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}"]
+    slurm_args = [ "--nodes", "1", "--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}"]
   when "GPU"
-    slurm_args = [ "--nodes", "#{num_nodes}", "--partition", "#{slurm_partition}", "--time", "#{walltime}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}", "--gres", "#{gres_value}"]
+    slurm_args = [ "--nodes", "1",  "--ntasks", "#{ppn}", "--partition", "#{slurm_partition}", "--time", "#{walltime}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}", "--gres", "#{gres_value}"]
     
   end
 %>
