@@ -1,0 +1,34 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+#   hard-coded/user-defined attributes that make up this Batch Connect app.
+---
+
+cluster: "brc"
+
+form:
+  - Rserver
+  - Rapp
+  - job_name
+  - bc_num_hours
+
+attributes:
+  Rserver: "rstudio-server/2022.12.0-353"
+
+  Rapp:
+    widget: select
+    label: "R Version"
+    options:
+      - [ "4.2.1", "r/4.2.1" ]
+      - [ "4.0.3", "r/4.0.3" ]
+
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "The maximum number of hours your RStudio session will run for. Pleas delete your session when you are done."
+    value: 1
+
+  job_name:
+    label: "Name of the Job"
+    value: "OOD_RStudio"
+

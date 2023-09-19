@@ -4,16 +4,19 @@
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
 ---
 
-cluster: "brc_jupyter_lha"
+cluster: "brc"
+
+cacheable: "false"
 
 form:
   - version
   - bc_num_hours
+  - job_name
 
 attributes:
-  
+
   version:
-    widget: "select"
+    widget: select
     label: "Codeserver Version"
     options:
       - ["3.8", "3.8.0"]
@@ -22,5 +25,10 @@ attributes:
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "The maximum number of hours your VS Code Server will run for."
+    help: "How many hours do you want to run this VS Code Server for ?"
     value: 1
+
+  job_name:
+    label: "Name of the job"
+    value: "CodeServer_interactive"
+

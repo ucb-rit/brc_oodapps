@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#code_server_version=context.version
+#code_server_version=<%= context.version %>
 CODE_SERVER_DATAROOT="$HOME/.local/share/code-server"
 mkdir -p "$CODE_SERVER_DATAROOT/extensions"
 
@@ -10,8 +12,9 @@ export PASSWORD="$password"
 echo "$(date): Running on compute node ${compute_node}:$port"
 
 # VSCode complains that system git is too old.
-#module load git app_code_server
+#module load git/2.36.1 vscode/3.8.0
 module load git/2.36.1 vscode/<%= context.version  %>
+#code_server_version %>
 #
 # Start Code Server.
 #
@@ -22,7 +25,7 @@ code-server \
     --auth="password" \
     --bind-addr="0.0.0.0:${port}" \
     --disable-telemetry \
-##    --extra-extensions-dir="$CODE_SERVER_DATAROOT/extensions" \
+#    --extra-extensions-dir="$CODE_SERVER_DATAROOT/extensions" \
     --user-data-dir="$CODE_SERVER_DATAROOT" \
     --log debug \
     --ignore-last-opened \

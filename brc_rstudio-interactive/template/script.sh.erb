@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+module purge
+
+# load R (before RStudio as RStudio module needs ${R_DIR} set)
+module load <%= context.Rapp %>  
+
+# load RStudio Server
+module load <%= context.Rserver %>  
+
+
+# Free RStudio Server does not support use of R_LIBS_SITE:
+# https://community.rstudio.com/t/rstudio-server-pro-and-r-libs-site-works-but-not-on-the-free-version-not-supported/83514
+# but when we run rsession below, we can hack it in via --r-libs-user, in addition to R_LIBS_USER
+module load r-packages
+
+R_SHORT_VERSION=$(echo <%= context.Rapp %> | sed -E "s/r\/([0-9]\.[0-9])\.[0-9]/\1/")
+
+echo "R_SHORT_VERSION ${R_SHORT_VERSION}"
+
+module load r-spatial/${R_SHORT_VERSION}  
+
+# R_LIBS_USER will generally be empty
+if [ "$R_LIBS_USER" = "" ]; then
+    R_LIBS_USER=${HOME}/R/x86_64-pc-linux-gnu-library/${R_SHORT_VERSION} 
+fi
+
+echo $R_LIBS_USER
+
+#
+# Start RStudio Server
+#
+
+# PAM auth helper used by RStudio
+export RSTUDIO_AUTH="${PWD}/bin/auth"
+
+# Generate an `rsession` wrapper script
+export RSESSION_WRAPPER_FILE="${PWD}/rsession.sh"
+(
+umask 077
+sed 's/^ \{2\}//' > "${RSESSION_WRAPPER_FILE}" << EOL
+  #!/usr/bin/env bash
+
+  # Log all output from this script
+  export RSESSION_LOG_FILE="${PWD}/rsession.log"
+  exec &>>"\${RSESSION_LOG_FILE}"
+
+  # Launch the original command
+  echo "Launching rsession..."
+  set -x
+  exec rsession --r-libs-user "${R_LIBS_USER}:${R_LIBS_SITE}" "\${@}"
+EOL
+)
+chmod 700 "${RSESSION_WRAPPER_FILE}"
+
+# Generate a database.conf file
+export DBCONF="${PWD}/database.conf"
+(
+umask 077
+sed 's/^ \{2\}//' > "${DBCONF}" << EOL
+  # set database location
+  provider=sqlite
+  directory=/tmp/rstudio-server/db
+EOL
+)
+chmod 700 "${DBCONF}"
+
+# Set working directory to home directory
+cd "${HOME}"
+
+# Create a unique $TMPDIR for runtime files
+#export TMPDIR="$(mktemp -d)"
+
+# Output debug info
+# module list
+
+# Launch the RStudio Server
+echo "Starting up rserver..."
+set -x
+rserver \
+  --www-port ${port} \
+  --auth-none 1 \
+  --auth-pam-helper-path "${RSTUDIO_AUTH}" \
+  --auth-encrypt-password 0 \
+  --rsession-path "${RSESSION_WRAPPER_FILE}" \
+  --server-data-dir "${TMPDIR}" \
+  --secure-cookie-key-file "${TMPDIR}/rstudio-server/secure-cookie-key" \
+  --database-config-file "${DBCONF}" \
+  --server-user $(whoami) 

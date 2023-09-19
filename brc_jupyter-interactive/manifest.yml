@@ -1,0 +1,13 @@
+---
+name: Jupyter Server - compute on shared Jupyter node for exploration, debugging
+category: Interactive Apps
+subcategory: Servers
+role: batch_connect
+description: |
+  This app will launch a [Jupyter] server session on the Berkeley Research Computing ([BRC]) Savio cluster.
+
+  [Jupyter]: https://jupyter.org/
+  [Python]: https://www.python.org/
+  [UCB]: https://www.berkeley.edu/
+  [Research-IT]: https://research-it.berkeley.edu/
+  [BRC]: https://research-it.berkeley.edu/programs/berkeley-research-computing
