@@ -3,7 +3,7 @@
 # @note Used to define the submitted cluster, title, description, and
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
 <%-
-  cmd = "/usr/bin/sacctmgr show associations user=$USER -P -n format=partition,account,qos"
+  cmd = "/usr/bin/sacctmgr show associations user=$USER -P -n format=partition,account,qos | grep -v ood-inter"
   begin
     output, status = Open3.capture2e(cmd)
     if status.success?
