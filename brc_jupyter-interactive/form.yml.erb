@@ -11,27 +11,11 @@ form:
   - modules
   - extra_jupyter_args
   - job_name
-#  - slurm_partition
-#  - slurm_account
-#  - qos_name
-#  - num_nodes
-#  - num_cores
-#  - gres_value
   - bc_num_hours
-#  - user_email
-#  - raw_data
 
 attributes:
- # modules: "python/3.7"
+  modules: "python/3.7"
   extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
-
-  modules:
-    widget: select
-    label: "Jupyter Notebook Version"
-    options:
-      - [ "3.7", "python/3.7" ]
-      - [ "3.8.8", "python/3.8.8" ]
-      - [ "3.9.12", "python/3.9.12" ]
 
   bc_num_hours:
     label: "Wall Clock Time"
