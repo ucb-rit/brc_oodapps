@@ -3,7 +3,7 @@
 # @note Used to define the submitted cluster, title, description, and
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
 <%-
-  cmd = "/usr/bin/sacctmgr show associations user=$USER -P -n format=partition,account,qos | grep -v ood-inter"
+  cmd = "/usr/bin/sacctmgr show associations user=$USER -P -n format=partition,account,qos | grep -v ood-inter |grep -vw savio |sort |uniq"
   begin
     output, status = Open3.capture2e(cmd)
     if status.success?
@@ -84,11 +84,11 @@ attributes:
 
   gres_value:
     label: "Type and number of GPUs"
-    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. savio2_gpu:(gpu:K80:1) and savio3_gpu:(gpu:GTX2080TI:1 or gpu:TITAN:1, gpu:A40:1, gpu:V100:1)"
+    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. savio2_gpu:(gpu:K80:1) and savio3_gpu:(gpu:GTX2080TI:1 or gpu:TITAN:1, gpu:A40:1, gpu:V100:1, gpu:A5000:1)"
 
   num_cores:
     label: "Number of CPU Cores per Node"
-    help: "The number of CPU cores for Matlab. With GPU option, CPU  core# depends on gpu type. [V100:1->4 CPU cores], [gtxA2080ti:1->2 CPU cores], [A40:1->8 CPU cores]"
+    help: "The number of CPU cores for Matlab. With GPU option, CPU  core# depends on gpu type. [V100:1->4 CPU cores], [gtxA2080ti:1->2 CPU cores], [A40:1->8 CPU cores], [gpu:A5000->4 CPU cores]"
     value: 1
 
   user_email:
