@@ -19,9 +19,9 @@ attributes:
     widget: select
     label: "Codeserver Version"
     options:
-      - ["3.8", "3.8.0"]
-      - ["4.8", "4.8.3"]
       - ["4.11", "4.11.0"]
+      - ["4.8", "4.8.3"]
+      - ["3.8", "3.8.0"]
 
   bc_num_hours:
     label: "Wall Clock Time"
