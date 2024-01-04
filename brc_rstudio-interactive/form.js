@@ -43,7 +43,7 @@ function replace_options($select, new_options) {
 function toggle_gres_value_field_visibility() {
   let slurm_partition = $("#batch_connect_session_context_slurm_partition");
   let gpu_partitions = [
-      'savio2_gpu', 'savio2_1080ti', 'savio3i_gpu', 'savio3_2080ti', 'savio4_gpu'
+      'savio2_gpu', 'savio2_1080ti', 'savio3_gpu', 'savio4_gpu'
   ];
 
   toggle_visibility_of_form_group(

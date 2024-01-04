@@ -85,7 +85,7 @@ attributes:
 
   gres_value:
     label: "Number and Type of GPUs"
-    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. Remember to specify two CPUs for each GPU in the 'Number of CPU Cores per Node' field."
+    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and 'type' is the type of GPU (the latter is required for 'savio3_gpu' and 'savio4_gpu'). Remember to specify two or more CPUs for each GPU in the 'Number of CPU Cores per Node' field -- the number of CPUs required for a given GPU type is discussed in the Savio documentation."
 
   user_email:
     label: "Email Address (Optional)"
