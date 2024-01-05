@@ -57,7 +57,7 @@ function toggle_gres_value_field_visibility() {
 function toggle_cpu_cores_field_visibility() {
   let slurm_partition = $("#batch_connect_session_context_slurm_partition");
   let per_core_partitions = [
-    'savio2_htc','savio3_htc','savio4_htc','savio2_gpu','savio3_gpu','savio2_1080ti', 'savio4_gpu'
+    'savio3_htc','savio2_htc','savio4_htc','savio2_gpu','savio3_gpu','savio2_1080ti', 'savio4_gpu'
   ];
 
   toggle_visibility_of_form_group(

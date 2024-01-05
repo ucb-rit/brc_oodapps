@@ -43,7 +43,7 @@ function replace_options($select, new_options) {
 function toggle_gres_value_field_visibility() {
   let slurm_partition = $("#batch_connect_session_context_slurm_partition");
   let gpu_partitions = [
-    'savio2_gpu', 'savio2_1080ti', 'savio3_gpu', 'savio3_2080ti'
+      'savio2_gpu', 'savio2_1080ti', 'savio3_gpu', 'savio4_gpu'
   ];
 
   toggle_visibility_of_form_group(
@@ -57,7 +57,7 @@ function toggle_gres_value_field_visibility() {
 function toggle_cpu_cores_field_visibility() {
   let slurm_partition = $("#batch_connect_session_context_slurm_partition");
   let per_core_partitions = [
-      'savio2_gpu', 'savio2_1080ti', 'savio3_gpu', 'savio2_htc', 'savio2_knl', 'savio3_htc', 'savio3_2080ti', 'savio4_htc'
+      'savio2_gpu', 'savio2_1080ti', 'savio3_gpu', 'savio2_htc', 'savio2_knl', 'savio3_htc', 'savio3_2080ti', 'savio4_htc', 'savio4_gpu'
   ];
 
   toggle_visibility_of_form_group(
