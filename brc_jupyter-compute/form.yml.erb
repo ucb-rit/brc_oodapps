@@ -25,6 +25,7 @@ form:
   - modules
   - extra_jupyter_args
   - job_name
+  - jupyterlab_switch
   - slurm_partition
   - slurm_account
   - qos_name
@@ -36,8 +37,8 @@ form:
   - raw_data
 
 attributes:
-  modules: "python/3.7"
-  extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
+  modules: "python/3.10.10"
+  extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/global/home/users/"${USER}"'
 
   bc_num_hours:
     label: "Wall Clock Time"
@@ -48,6 +49,11 @@ attributes:
     label: "Name of the Job"
     value: "OOD_Jupyter"
 
+  jupyterlab_switch:
+    widget: "check_box"
+    checked_value: 1
+    label: Use JupyterLab instead of Jupyter Notebook?
+  
   slurm_partition:
     label: "SLURM Partition"
     help: "The SLURM Partition in which you want to launch this Jupyter session. For code that is not parallelized (or using only a small number of CPU cores), the HTC partitions are a good choice."
