@@ -9,13 +9,17 @@ cluster: "brc"
 cacheable: "false"
 form:
   - modules
-  - extra_jupyter_args
   - job_name
+  - jupyterlab_switch
   - bc_num_hours
 
 attributes:
-  modules: "python/3.7"
-  extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
+  modules: "python/3.10.10"
+
+  jupyterlab_switch:
+    widget: "check_box"
+    checked_value: 1
+    label: Use JupyterLab instead of Jupyter Notebook?
 
   bc_num_hours:
     label: "Wall Clock Time"
