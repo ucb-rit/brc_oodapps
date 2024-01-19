@@ -26,6 +26,8 @@ form:
   - job_name
   - jupyterlab_switch
   - slurm_partition
+  - extra_jupyter_args 
+  - extra_jupyterlab_args
   - slurm_account
   - qos_name
   - num_nodes
@@ -37,7 +39,9 @@ form:
 
 attributes:
   modules: "python/3.10.10"
-   
+  extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
+  extra_jupyterlab_args: '--notebook-dir=/ --NotebookApp.default_url=/global/home/users/"${USER}"'    
+  
   bc_num_hours:
     label: "Wall Clock Time"
     help: "The maximum number of hours your Jupyter session will run for. To save FCA credits or free up resources for your condo group members, you should delete your session when you are done."
