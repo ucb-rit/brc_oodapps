@@ -35,3 +35,10 @@ script:
      - "ood_interactive"
      - "--partition"
      - "ood-inter"   
+     <%- if user_email != "" %>
+     - "--mail-user"
+     - "<%= user_email %>"
+     - "--mail-type"
+     - "BEGIN"
+     <%- end %>
+

@@ -10,20 +10,12 @@ cacheable: "false"
 form:
   - modules
   - job_name
-  - jupyterlab_switch
-  - extra_jupyter_args 
   - extra_jupyterlab_args
   - bc_num_hours
 
 attributes:
-  modules: "python/3.10.10"
-  extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
-  extra_jupyterlab_args: '--notebook-dir=/ --NotebookApp.default_url=/global/home/users/"${USER}"' 
-
-  jupyterlab_switch:
-    widget: "check_box"
-    checked_value: 1
-    label: Use JupyterLab instead of Jupyter Notebook?
+  modules: "anaconda3/2024.02-1-11.4"
+  extra_jupyterlab_args: '--notebook-dir=/ --NotebookApp.default_url=/global/home/users/"${USER}"'
 
   bc_num_hours:
     label: "Wall Clock Time"

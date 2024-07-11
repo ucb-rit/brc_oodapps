@@ -7,18 +7,19 @@ module load <%= context.Rapp %>
 
 # load RStudio Server
 module load <%= context.Rserver %>  
-module load <%= context.Rspatial %>
+
 
 # Free RStudio Server does not support use of R_LIBS_SITE:
 # https://community.rstudio.com/t/rstudio-server-pro-and-r-libs-site-works-but-not-on-the-free-version-not-supported/83514
 # but when we run rsession below, we can hack it in via --r-libs-user, in addition to R_LIBS_USER
 #module load r-packages
 
-#R_SHORT_VERSION=$(echo <%= context.Rapp %> | sed -E "s/r\/([0-9]\.[0-9])\.[0-9]/\1/")
+R_SHORT_VERSION=$(echo <%= context.Rapp %> | sed -E "s/r\/([0-9]\.[0-9])\.[0-9]/\1/")
 
-#echo "R_SHORT_VERSION ${R_SHORT_VERSION}"
+echo "R_SHORT_VERSION ${R_SHORT_VERSION}"
 
-#module load r-spatial/${R_SHORT_VERSION}  
+#module load r-spatial/${R_SHORT_VERSION}
+module load r-spatial/4.4.0
 
 # R_LIBS_USER will generally be empty
 if [ "$R_LIBS_USER" = "" ]; then

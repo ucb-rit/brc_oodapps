@@ -10,9 +10,9 @@
   
   case node_type
   when "CPU"
-    slurm_args = [ "--nodes", "1", "--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}"]
+    slurm_args = [ "--nodes", "1", "--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}" , "--mail-user", "#{user_email}", "--mail-type", "BEGIN" ]
   when "GPU"
-    slurm_args = [ "--nodes", "1",  "--ntasks", "#{ppn}", "--partition", "#{slurm_partition}", "--time", "#{walltime}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}", "--gres", "#{gres_value}"]
+    slurm_args = [ "--nodes", "1",  "--ntasks", "#{ppn}", "--partition", "#{slurm_partition}", "--time", "#{walltime}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}", "--gres", "#{gres_value}", "--mail-user", "#{user_email}", "--mail-type", "BEGIN" ]
     
   end
 %>

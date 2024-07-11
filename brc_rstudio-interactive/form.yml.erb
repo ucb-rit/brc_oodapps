@@ -11,18 +11,12 @@ form:
   - Rapp
   - job_name
   - bc_num_hours
+  - Rspatial
 
 attributes:
-  Rserver: "rstudio-server/2023.09.1-494"
-
-  Rapp:
-    widget: select
-    label: "R Version"
-    options:
-      - [ "4.3.2", "r/4.3.2" ]
-      - [ "4.2.1", "r/4.2.1" ]
-      - [ "4.0.3", "r/4.0.3" ]
-
+  Rserver: "rstudio-server/2024.04.2-764"
+  Rapp: "r/4.4.0-gcc-11.4.0"
+  Rspatial: "r-spatial/4.4.0"
 
   bc_num_hours:
     label: "Wall Clock Time"

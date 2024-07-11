@@ -7,11 +7,7 @@
 # @see http://www.rubydoc.info/gems/ood_core/OodCore/BatchConnect/Template
 #
 batch_connect:
-  # We use the basic web server template for generating the job script
-  #
-  # @note Do not change this unless you know what you are doing!
-  template: "basic"
-
+  template: vnc
   # You can override the command used to query the hostname of the compute node
   # here
   #
@@ -40,4 +36,3 @@ script:
      - "ood_interactive"
      - "--partition"
      - "ood-inter"   
-
