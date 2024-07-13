@@ -1,5 +1,5 @@
 ---
-name: Jupyter Server - exploration, debugging on shared Jupyter nodes
+name: Jupyter Server - - exploration, debugging on shared nodes
 category: Interactive Apps
 subcategory: Servers
 role: batch_connect

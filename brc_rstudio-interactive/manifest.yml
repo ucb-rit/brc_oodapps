@@ -1,5 +1,5 @@
 ---
-name: RStudio Server - exploration, debugging on shared OOD nodes
+name: RStudio Server - exploration, debugging on shared nodes
 category: Interactive Apps
 subcategory: Servers
 role: batch_connect
