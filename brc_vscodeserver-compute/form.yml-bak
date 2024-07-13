@@ -1,0 +1,28 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+#   hard-coded/user-defined attributes that make up this Batch Connect app.
+---
+
+cluster: "brc"
+
+cacheable: "false"
+
+form:
+  - version
+  - bc_num_hours
+  - job_name
+
+attributes:
+
+  version: "code-server/4.12.0"
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "How many hours do you want to run this VS Code Server for ?"
+    value: 1
+    max: 72
+  job_name:
+    label: "Name of the job"
+    value: "CodeServer_interactive"
+

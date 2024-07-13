@@ -1,0 +1,26 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+#   hard-coded/user-defined attributes that make up this Batch Connect app.
+---
+
+cluster: "brc_jupyter_lha"
+
+form:
+  - version
+  - bc_num_hours
+
+attributes:
+  
+  version:
+    widget: "select"
+    label: "Codeserver Version"
+    options:
+      - ["3.8", "3.8.0"]
+      - ["4.8", "4.8.3"]
+      - ["4.11", "4.11.0"]
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "The maximum number of hours your VS Code Server will run for."
+    value: 1
