@@ -15,10 +15,11 @@ module load <%= context.Rspatial %>
 
 # R_LIBS_USER will generally be empty
 if [ "$R_LIBS_USER" = "" ]; then
-    R_LIBS_USER=${HOME}/R/x86_64-pc-linux-gnu-library/${R_SHORT_VERSION} 
+    R_LIBS_USER=${HOME}/R/x86_64-pc-linux-gnu-library 
 fi
 
-echo $R_LIBS_USER
+# Note that R_LIBS_USER can either contain the trailing /x.y version or not
+# and either way .libPaths is set correctly (C. Paciorek, 2024-07-16).
 
 #
 # Start RStudio Server
@@ -46,6 +47,17 @@ EOL
 )
 chmod 700 "${RSESSION_WRAPPER_FILE}"
 
+# For some reason, one can't connect to the R session
+# if the db directory is /tmp/rstudio-server/db (2024-07-16, C. Paciorek).
+# So make a session-specific tempdir.
+
+# At some point in the past we also needed to do this
+# because of an issue with not having user-specific 
+# directories, but then since then we went back to
+# using /tmp/rstudio-server/db.
+
+export TMPDIR=$(mktemp -d)
+
 # Generate a database.conf file
 export DBCONF="${PWD}/database.conf"
 (
@@ -53,19 +65,13 @@ umask 077
 sed 's/^ \{2\}//' > "${DBCONF}" << EOL
   # set database location
   provider=sqlite
-  directory=/tmp/rstudio-server/db
+  directory=${TMPDIR}/rstudio-server/db
 EOL
 )
 chmod 700 "${DBCONF}"
 
 # Set working directory to home directory
 cd "${HOME}"
-
-# Create a unique $TMPDIR for runtime files
-#export TMPDIR="$(mktemp -d)"
-
-# Output debug info
-# module list
 
 # Launch the RStudio Server
 echo "Starting up rserver..."
