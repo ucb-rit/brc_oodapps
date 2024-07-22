@@ -4,7 +4,7 @@ category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch a [Jupyter] server session on the Berkeley Research Computing ([BRC]) Savio cluster.
+  This app will launch a [Jupyter] server session on the Berkeley Research Computing ([BRC]) Savio cluster. On the shared node, you are limited to 8 GB memory and should use at most a few cores.
 
   [Jupyter]: https://jupyter.org/
   [Python]: https://www.python.org/
