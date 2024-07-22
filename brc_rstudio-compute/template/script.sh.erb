@@ -14,18 +14,12 @@ module load <%= context.Rspatial %>
 # but when we run rsession below, we can hack it in via --r-libs-user, in addition to R_LIBS_USER
 #module load r-packages
 
-#R_SHORT_VERSION=$(echo <%= context.Rapp %> | sed -E "s/r\/([0-9]\.[0-9])\.[0-9]/\1/")
-
-#echo "R_SHORT_VERSION ${R_SHORT_VERSION}"
-
-#module load r-spatial/${R_SHORT_VERSION}  
-
 # R_LIBS_USER will generally be empty
 if [ "$R_LIBS_USER" = "" ]; then
-    R_LIBS_USER=${HOME}/R/x86_64-pc-linux-gnu-library/${R_SHORT_VERSION} 
+    R_LIBS_USER=$(Rscript -e "cat(Sys.getenv('R_LIBS_USER'))")
 fi
 
-echo $R_LIBS_USER
+echo "R_LIBS_USER is: ${R_LIBS_USER}"
 
 #
 # Start RStudio Server
