@@ -15,7 +15,7 @@ form:
 
 attributes:
 
-  version: "code-server/4.12.0"
+  version: "code-server/4.91.1"
 
   bc_num_hours:
     label: "Wall Clock Time"
