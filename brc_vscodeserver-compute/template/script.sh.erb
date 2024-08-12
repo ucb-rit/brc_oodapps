@@ -13,7 +13,7 @@ echo "$(date): Running on compute node ${compute_node}:$port"
 
 # VSCode complains that system git is too old.
 module load <%= context.version  %>
-#code_server_version %>
+module load <%= context.extension %>
 #
 # Start Code Server.
 #

@@ -24,6 +24,7 @@ cluster: "brc"
 form:
   - version
   - job_name
+  - extension
   - slurm_partition
   - slurm_account
   - qos_name
@@ -36,6 +37,16 @@ form:
 attributes:
   version: "code-server/4.91.1"
   
+  extension:
+    widget: select
+    label: "Choose an extension if needed"
+    help: "This defines the extension to load."
+    options:
+            - [ "None", "" ]
+            - [ "Jupyter", "anaconda3/2024.02-1-11.4" ]
+            - [ "R", "r/4.4.0-gcc-11.4.0" ]
+            - [ "Julia", "julia/1.10.2-11.4" ]
+
   job_name:
     label: "Name of the Job"
     value: "vscode_compute"
