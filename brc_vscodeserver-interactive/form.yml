@@ -19,10 +19,10 @@ attributes:
 
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "How many hours do you want to run this VS Code Server for ?"
+    help: "The maximum number of hours your VS Code session will run for. Please delete your session when you are done."
     value: 1
     max: 72
   job_name:
     label: "Name of the job"
-    value: "CodeServer_interactive"
+    value: "OOD_VSCode"
 

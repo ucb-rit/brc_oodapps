@@ -42,7 +42,7 @@ attributes:
   
   bc_num_hours:
     label: "Wall Clock Time"
-    help: "The maximum number of hours your Jupyter session will run for. To save FCA credits or free up resources for your condo group members, you should delete your session when you are done."
+    help: "The maximum number of hours your Jupyter session will run for (at most one hour when using savio_debug QoS). To save FCA credits or free up resources for your condo group members, you should delete your session when you are done."
     value: 1
 
   job_name:
@@ -72,12 +72,12 @@ attributes:
 
   num_cores:
     label: "Number of CPU Cores per Node"
-    help: "The number of CPU cores you want per node for your Jupyter session."
+    help: "The number of CPU cores you want per node for your Jupyter session. See documentation for requirements when a GPU is requested."
     value: 1
 
   gres_value:
     label: "Number and Type of GPUs"
-    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. Remember to specify two CPUs for each GPU in the 'Number of CPU Cores per Node' field."
+    help: "A value in the form 'gpu:type:x' where 'x' is the number of GPUs and (often but not always required) 'type' is the type of GPU. See our documentation for details."
 
   user_email:
     label: "Email Address (Optional)"
