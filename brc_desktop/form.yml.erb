@@ -49,7 +49,7 @@ attributes:
 
   slurm_partition: 
     label: "SLURM Partition"
-    help: "The SLURM partition in which you want to launch this Desktop session. Only savio2_htc is available at this time."
+    help: "The SLURM partition in which you want to launch this Desktop session."
     widget: select
 
   slurm_account:
@@ -62,14 +62,14 @@ attributes:
     help: "The QoS you want run under. Most FCA users choose savio_normal. Condo users can either use their condo QoS or the low-priority QoS."
     widget: select
 
-  gres_value:
-    label: "Type and number of GPUs"
-    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and (optionally) 'type' is the type of GPU. savio2_gpu:(gpu:K80:1) and savio3_gpu:(gpu:GTX2080TI:1 or gpu:TITAN:1, gpu:A40:1, gpu:V100:1, gpu:A5000:1)"
-
   num_cores:
     label: "Number of CPU Cores per Node"
-    help: "The number of CPU cores for Matlab. With GPU option, CPU  core# depends on gpu type. [V100:1->4 CPU cores], [gtxA2080ti:1->2 CPU cores], [A40:1->8 CPU cores], [gpu:A5000->4 CPU cores] , [K80:1->2]"
+    help: "The number of CPU cores you want per node for your Desktop session. See documentation for requirements when a GPU is requested."
     value: 1
+
+  gres_value:
+    label: "Type and number of GPUs"
+    help: "A value in the form 'gpu:type:x' where 'x' is the number of GPUs and (often but not always required) 'type' is the type of GPU. See our documentation for details."
 
   user_email:
     label: "Email Address (optional)"

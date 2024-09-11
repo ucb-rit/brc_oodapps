@@ -75,12 +75,12 @@ attributes:
 
   num_cores:
     label: "Number of CPU Cores per Node"
-    help: "The number of CPU cores you want per node for your RStudio session."
+    help: "The number of CPU cores you want per node for your RStudio session. See documentation for requirements when a GPU is requested."
     value: 1
 
   gres_value:
     label: "Number and Type of GPUs"
-    help: "The GRES value in the form 'gpu:x' or 'gpu:type:x' where 'x' is the number of GPUs and 'type' is the type of GPU (the latter is required for 'savio3_gpu' and 'savio4_gpu'). Remember to specify two or more CPUs for each GPU in the 'Number of CPU Cores per Node' field -- the number of CPUs required for a given GPU type is discussed in the Savio documentation."
+    help: "A value in the form 'gpu:type:x' where 'x' is the number of GPUs and (often but not always required) 'type' is the type of GPU. See our documentation for details."
 
   user_email:
     label: "Email Address (Optional)"
