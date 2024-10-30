@@ -38,7 +38,7 @@ form:
 attributes:
   modules: "anaconda3/2024.02-1-11.4"
  # extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
-  extra_jupyterlab_args: '--notebook-dir=/ --NotebookApp.default_url=/global/home/users/"${USER}"'    
+  extra_jupyterlab_args: '--notebook-dir=/global/home/users/"${USER}" --NotebookApp.default_url=/global/home/users/"${USER}"'    
   
   bc_num_hours:
     label: "Wall Clock Time"
