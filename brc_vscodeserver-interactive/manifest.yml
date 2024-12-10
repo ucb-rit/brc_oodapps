@@ -1,10 +1,10 @@
 ---
-name: VS Code Server - exploration, debugging on shared nodes
+name: VS Code Server - exploration, debugging on (free) shared nodes
 category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch a [VS Code] server using [Code Server] on the [UCB] [Research-IT] Berkeley Research Computing ([BRC]) Infrastructure. On the shared node, you are limited to 8 GB memory and should use at most a few cores.
+  This app will launch a [VS Code] server using [Code Server] on the [UCB] [Research-IT] Berkeley Research Computing ([BRC]) Infrastructure. On the (free) shared node, you are limited to 8 GB memory and should use at most a few cores.
 
   [VS Code]: https://code.visualstudio.com
   [Code Server]: https://github.com/cdr/code-server
