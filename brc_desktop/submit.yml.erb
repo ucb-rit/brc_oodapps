@@ -1,27 +1,67 @@
-<%-
-  ppn = num_cores.blank? ? 20 : num_cores.to_i
-  walltime = (bc_num_hours.to_i * 60)
- 
-  if slurm_partition.include?("gpu")
-     node_type = "GPU"
-  else
-     node_type = "CPU"
-  end
-  
-  case node_type
-  when "CPU"
-    slurm_args = [ "--nodes", "1", "--ntasks", "#{ppn}", "--time", "#{walltime}", "--partition", "#{slurm_partition}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}", "--mail-user", "#{user_email}", "--mail-type", "BEGIN" ]
-
-  when "GPU"
-    slurm_args = [ "--nodes", "1",  "--ntasks", "#{ppn}", "--partition", "#{slurm_partition}", "--time", "#{walltime}", "--qos", "#{qos_name}", "--job-name", "#{job_name}", "--account", "#{slurm_account}", "--gres", "#{gres_value}" , "--mail-user", "#{user_email}", "--mail-type", "BEGIN" ]
-    
-  end
-%>
+# Job submission configuration file
+#
 ---
+
+#
+# Configure the content of the job script for the batch job here
+# @see http://www.rubydoc.info/gems/ood_core/OodCore/BatchConnect/Template
+#
 batch_connect:
-  template: vnc
+  # We use the basic web server template for generating the job script
+  #
+  # @note Do not change this unless you know what you are doing!
+  template: "basic"
+
+  # You can override the command used to query the hostname of the compute node
+  # here
+  #
+  # @note It is **highly** recommended this be set in the global cluster
+  #   configuration file so that all apps can take advantage of it by default
+  #
+  #set_host: "host=$(hostname -A | awk '{print $2}')"
+
+#
+# Configure the job script submission parameters for the batch job here
+# @see http://www.rubydoc.info/gems/ood_core/OodCore/Job/Script
+#
+#script:
+#  queue_name: "queue1"
+#  accounting_id: "account1"
+#  email_on_started: true
+#  native: # ... array of command line arguments ...
 script:
-  native:
-  <%- slurm_args.each do |arg| %>
-    - "<%= arg %>"
-  <%- end %>
+   job_name: "<%= job_name %>"
+   queue_name: "<%= slurm_partition %>"
+   email_on_started: true
+   <%- if slurm_partition == "vector" %>"
+   qos: "vector_batch"
+   <%- else %> 
+   <%- if qos_name != "" %>
+   qos: "<%= qos_name %>"
+   <%- end %>
+   <%- end %>
+   native:
+     <%- if slurm_account != "" %>
+     - "--account"
+     - "<%= slurm_account %>"
+     <%- end %>
+     <%- if user_email != "" %>
+     - "--mail-user"
+     - "<%= user_email %>"
+     <%- end %>
+     <%- if gres_value != "" %>
+     - "--gres"
+     - "<%= gres_value %>"
+     <%- end %>
+     <%- if num_cores != "" %>
+     - "--ntasks-per-node"
+     - "<%= num_cores %>"
+     <%- end %>
+     - "--nodes"
+     - "<%= num_nodes %>"
+     <%- if user_email != "" %>
+     - "--mail-user"
+     - "<%= user_email %>"
+     - "--mail-type"
+     - "BEGIN"
+     <%- end %>

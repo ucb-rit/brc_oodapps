@@ -1,5 +1,5 @@
 ---
-name: Code Server - compute via Slurm using Savio partitions
+name: VS Code Server - compute via Slurm using Savio partitions
 category: Interactive Apps
 subcategory: Servers
 role: batch_connect
