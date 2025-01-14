@@ -9,6 +9,11 @@ module load <%= context.Rapp %>
 module load <%= context.Rserver %>  
 
 module load <%= context.Rspatial %>
+
+# User-specified module(s).
+module load <%= context.modules %>
+
+
 # Free RStudio Server does not support use of R_LIBS_SITE:
 # https://community.rstudio.com/t/rstudio-server-pro-and-r-libs-site-works-but-not-on-the-free-version-not-supported/83514
 # but when we run rsession below, we can hack it in via --r-libs-user, in addition to R_LIBS_USER

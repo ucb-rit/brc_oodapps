@@ -12,17 +12,23 @@ form:
   - version
   - bc_num_hours
   - job_name
+  - modules
 
 attributes:
 
   version: "code-server/4.91.1"
+
+  job_name:
+    label: "Name of the job"
+    value: "OOD_VSCode"
+    
+  modules:
+    label: "Software modules"
+    help: "List Savio software module(s) to load for use with VS Code, separated by spaces, without quotes. Version numbers are optional. To use Jupyter notebooks with VS Code, include 'anaconda3' here."
 
   bc_num_hours:
     label: "Wall Clock Time"
     help: "The maximum number of hours your VS Code session will run for. Please delete your session when you are done."
     value: 1
     max: 72
-  job_name:
-    label: "Name of the job"
-    value: "OOD_VSCode"
 
