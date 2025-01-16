@@ -10,9 +10,9 @@ cacheable: "false"
 
 form:
   - version
-  - bc_num_hours
   - job_name
   - modules
+  - bc_num_hours
 
 attributes:
 
