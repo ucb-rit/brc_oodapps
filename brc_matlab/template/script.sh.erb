@@ -31,6 +31,9 @@ cd "$HOME"
 # Load the required environment
 module load <%= context.versions %> 
 
+# User-specified module(s).
+module load <%= context.modules %>
+
 # Launch MATLAB
 <%- if context.node_type.include?("GPU") -%>
 module list
