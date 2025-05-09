@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
+<%- unless context.modules.blank? -%>
+# Purge the module environment to avoid conflicts
 module purge
+
+# User-specified module(s).
+module load <%= context.modules %>
+
+# List loaded modules
+module list
+<%- end -%>
 
 # load R (before RStudio as RStudio module needs ${R_DIR} set)
 module load <%= context.Rapp %>  
