@@ -8,23 +8,26 @@
 cluster: "brc"
 cacheable: "false"
 form:
-  - modules
   - job_name
+  - modules
   - extra_jupyterlab_args
   - bc_num_hours
 
 attributes:
-  modules: "anaconda3/2024.02-1-11.4"
   extra_jupyterlab_args: '--notebook-dir=/ --NotebookApp.default_url=/global/home/users/"${USER}"'
-
-  bc_num_hours:
-    label: "Wall Clock Time"
-    help: "The maximum number of hours your Jupyter session will run for. Please delete your session when you are done." 
-    value: 1
 
   job_name:
     label: "Name of the Job"
     value: "OOD_Jupyter"
+
+  modules:
+    label: "Software modules"
+    help: "List Savio software module(s) to load for use with your Jupyter session, separated by spaces, without quotes. Version numbers are optional. The `anaconda3/2024.02-1-11.4` module is loaded automatically."
+    
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "The maximum number of hours your Jupyter session will run for. Please delete your session when you are done." 
+    value: 1
 
 #  slurm_partition:
 #    label: "SLURM Partition"

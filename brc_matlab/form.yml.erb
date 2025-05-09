@@ -24,6 +24,7 @@ cluster: "brc"
 form:
   - versions
   - job_name
+  - modules
   - slurm_partition
   - slurm_account
   - qos_name
@@ -34,6 +35,7 @@ form:
   - raw_data
   - node_type
 
+
 attributes:
 
   # node_type: "GPU"  
@@ -43,6 +45,10 @@ attributes:
     label: "Name of the Job"
     value: "OOD_MATLAB"
 
+  modules:
+    label: "Software modules"
+    help: "List Savio software module(s) to load for use with MATLAB, separated by spaces, without quotes. Version numbers are optional."
+    
   versions:
     widget: select
     label: "MATLAB Versions"

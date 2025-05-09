@@ -14,8 +14,20 @@ echo "$(date): Running on compute node ${compute_node}:$port"
 # VSCode complains that system git is too old.
 module load <%= context.version  %>
 
+<%- unless context.modules.blank? -%>
+# Purge the module environment to avoid conflicts
+module purge
+
+# VSCode complains that system git is too old.
+module load <%= context.version  %>
+
 # User-specified module(s).
 module load <%= context.modules %>
+
+# List loaded modules
+module list
+<%- end -%>
+
 #
 # Start Code Server.
 #
