@@ -14,14 +14,14 @@ cd "${HOME}"
 # Purge the module environment to avoid conflicts
 module purge
 
-module load anaconda3/2024.02-1-11.4
-
 # User-specified module(s).
 module load <%= context.modules %>
 
 # List loaded modules
 module list
 <%- end -%>
+
+module load anaconda3/2024.02-1-11.4
 
 # Benchmark info
 echo "TIMING - Starting jupyter at: $(date)"
