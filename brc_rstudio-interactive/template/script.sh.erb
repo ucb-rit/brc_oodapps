@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
+<%- unless context.modules.blank? -%>
+# Purge the module environment to avoid conflicts
 module purge
+
+# User-specified module(s).
+module load <%= context.modules %>
+
+# List loaded modules
+module list
+<%- end -%>
+
 
 # load R (before RStudio as RStudio module needs ${R_DIR} set)
 module load <%= context.Rapp %>  
@@ -9,6 +19,8 @@ module load <%= context.Rapp %>
 module load <%= context.Rserver %>  
 
 module load <%= context.Rspatial %>
+
+
 # Free RStudio Server does not support use of R_LIBS_SITE:
 # https://community.rstudio.com/t/rstudio-server-pro-and-r-libs-site-works-but-not-on-the-free-version-not-supported/83514
 # but when we run rsession below, we can hack it in via --r-libs-user, in addition to R_LIBS_USER

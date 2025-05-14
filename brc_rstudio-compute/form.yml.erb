@@ -27,6 +27,7 @@ form:
   - Rapp
   - Rspatial
   - job_name
+  - modules
   - slurm_partition
   - slurm_account
   - qos_name
@@ -42,15 +43,18 @@ attributes:
   Rapp: "r/4.4.0-gcc-11.4.0"
   Rspatial: "r-spatial/4.4.0"
 
+  job_name:
+    label: "Name of the Job"
+    value: "OOD_RStudio"
+
+  modules:
+    label: "Software modules"
+    help: "List Savio software module(s) to load for use with RStudio, separated by spaces, without quotes. Version numbers are optional."
 
   bc_num_hours:
     label: "Wall Clock Time"
     help: "The maximum number of hours your RStudio session will run for (at most one hour when using savio_debug QoS). To save FCA credits or free up resources for your condo group members, you should delete your session when you are done."
     value: 1
-
-  job_name:
-    label: "Name of the Job"
-    value: "OOD_RStudio"
 
   slurm_partition:
     label: "SLURM Partition"

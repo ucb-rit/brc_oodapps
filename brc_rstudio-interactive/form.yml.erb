@@ -9,21 +9,29 @@ cluster: "brc"
 form:
   - Rserver
   - Rapp
-  - job_name
-  - bc_num_hours
   - Rspatial
+  - job_name
+  - modules
+  - bc_num_hours
+
+
 
 attributes:
   Rserver: "rstudio-server/2024.04.2-764"
   Rapp: "r/4.4.0-gcc-11.4.0"
   Rspatial: "r-spatial/4.4.0"
 
+  job_name:
+    label: "Name of the Job"
+    value: "OOD_RStudio"
+    
+  modules:
+    label: "Software modules"
+    help: "List Savio software module(s) to load for use with RStudio, separated by spaces, without quotes. Version numbers are optional."
+    
   bc_num_hours:
     label: "Wall Clock Time"
     help: "The maximum number of hours your RStudio session will run for. Please delete your session when you are done."
     value: 1
 
-  job_name:
-    label: "Name of the Job"
-    value: "OOD_RStudio"
 
