@@ -23,10 +23,10 @@ cluster: "brc"
 
 form:
   - job_name
+  - path
   - modules
   - slurm_partition
   - extra_jupyterlab_args
-  - path
   - slurm_account
   - qos_name
   - num_nodes
@@ -38,7 +38,7 @@ form:
 
 attributes:
  # extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
-  extra_jupyterlab_args: --NotebookApp.default_url=/global/home/users/"${USER}"'    
+  extra_jupyterlab_args: '--NotebookApp.default_url=/global/home/users/"${USER}"'
   
   job_name:
     label: "Name of the Job"
@@ -46,8 +46,9 @@ attributes:
 
   path:
     label: "Default path"
-    value: "/global/home/users/${USER}"
+    value: "/"
     help: "Directory that the Jupyter file browser will default to."
+    # value: "<%= default_path %>"
 
   modules:
     label: "Software modules"
