@@ -39,16 +39,14 @@ form:
 attributes:
  # extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
   extra_jupyterlab_args: '--NotebookApp.default_url=/global/home/users/"${USER}"'
-  default_path: '"${HOME}"'
   
   job_name:
     label: "Name of the Job"
     value: "OOD_Jupyter"
 
   path:
-    label: "Default path"
-    value: "<%= default_path %>"
-    help: "Directory that the Jupyter file browser will default to (e.g., `/global/scratch/users/your_username`)."
+    label: "Base directory"
+    help: "Directory that Jupyter will treat as its root directory and that the file browser will start in. Defaults to your home directory."
 
   modules:
     label: "Software modules"

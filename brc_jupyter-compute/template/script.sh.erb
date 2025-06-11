@@ -26,6 +26,10 @@ module load anaconda3/2024.02-1-11.4
 # Benchmark info
 echo "TIMING - Starting jupyter at: $(date)"
 
+path=<%= context.path %>
+if [ "${path}" == "" ]; then path=${HOME}; fi
+       
+
 # Launch the Jupyter Notebook Server
 set -x
-jupyter lab --config="${CONFIG_FILE}" --notebook-dir=<%= context.path %> <%= context.extra_jupyterlab_args %>
+jupyter lab --config="${CONFIG_FILE}" --notebook-dir=${path} <%= context.extra_jupyterlab_args %>
