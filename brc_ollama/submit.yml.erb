@@ -1,0 +1,58 @@
+# Job submission configuration file
+#
+---
+
+#
+# Configure the content of the job script for the batch job here
+# @see http://www.rubydoc.info/gems/ood_core/OodCore/BatchConnect/Template
+#
+batch_connect:
+  # We use the basic web server template for generating the job script
+  #
+  # @note Do not change this unless you know what you are doing!
+  template: "basic"
+  conn_params:
+    - host
+    - port
+    - password
+    - vscode_host
+    - vscode_port
+    - vscode_password
+script:
+   job_name: "<%= job_name %>"
+   queue_name: "<%= slurm_partition %>"
+   email_on_started: true
+   <%- if slurm_partition == "vector" %>"
+   qos: "vector_batch"
+   <%- else %> 
+   <%- if qos_name != "" %>
+   qos: "<%= qos_name %>"
+   <%- end %>
+   <%- end %>
+   native:
+     <%- if slurm_account != "" %>
+     - "--account"
+     - "<%= slurm_account %>"
+     <%- end %>
+     <%- if user_email != "" %>
+     - "--mail-user"
+     - "<%= user_email %>"
+     <%- end %>
+     <%- if gres_type != "" %>
+     - "--gres"
+     - "gpu:<%=gres_type %>:<%=gres_count %>"
+     - "--ntasks-per-node"
+     - "<%= gres_count %>"
+     <%- end %>
+     <%- if num_cores != "" %>
+     - "--cpus-per-task"
+     - "<%= num_cores %>"
+     <%- end %>
+     - "--nodes"
+     - "<%= num_nodes %>"
+     <%- if user_email != "" %>
+     - "--mail-user"
+     - "<%= user_email %>"
+     - "--mail-type"
+     - "BEGIN"
+     <%- end %>

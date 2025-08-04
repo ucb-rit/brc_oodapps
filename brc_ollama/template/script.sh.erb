@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# Benchmark info
+echo "TIMING - Starting main script at: $(date)"
+
+# Set working directory to home directory
+cd "${HOME}"
+
+#
+# Start Jupyter Notebook Server
+#
+module purge
+# Load the require modules
+module load <%= context.modules %>
+
+module load ai/jupyter-ai/2.31.4 
+module load ai/ollama/0.6.8
+
+# begin of relevant start-ollama.sh content
+
+export OLLAMA_NUM_THREADS=$(nproc)
+NODE_IP=$(hostname -I | awk '{print $1}')
+OLLAMA_PORT=$(find_port)
+export OLLAMA_HOST="${NODE_IP}:${OLLAMA_PORT}"
+
+ollama serve > /dev/null 2>&1 &
+OLLAMA_PID=$!
+SCRIPT_CONF="/global/software/rocky-8.x86_64/manual/modules/apps/ai/ollama/0.6.8/bin/write-configs.py"
+sleep 5
+python3 "${SCRIPT_CONF}" "${NODE_IP}" "${OLLAMA_PORT}"
+
+jupyter lab \
+    --config="${CONFIG_FILE}" \
+    --AiExtension.allowed_providers=ollama \
+    --AiExtension.allowed_providers=huggingface_hub \
+    <%=context.extra_jupyterlab_args%> &
+
+JUPYTER_PID=$!
+sleep 5
+
+# VSCode
+CODE_SERVER_DATAROOT="$HOME/.local/share/code-server"
+mkdir -p "$CODE_SERVER_DATAROOT/extensions"
+
+export PASSWORD="$vscode_password"
+echo "$(date): Running on compute node ${compute_node}:$vscode_port"
+module load code-server/4.99.3
+
+code-server \
+    --auth="password" \
+    --bind-addr="0.0.0.0:${vscode_port}" \
+    --disable-telemetry \
+#    --extra-extensions-dir="$CODE_SERVER_DATAROOT/extensions" \
+    --user-data-dir="$CODE_SERVER_DATAROOT" \
+    --log debug \
+    --ignore-last-opened \
+    "$HOME" &
+
+CODESERVER_PID=$!
+
+sleep 5
