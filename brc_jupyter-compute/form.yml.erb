@@ -23,7 +23,6 @@ cluster: "brc"
 
 form:
   - job_name
-  - path
   - modules
   - slurm_partition
   - extra_jupyterlab_args
@@ -38,15 +37,11 @@ form:
 
 attributes:
  # extra_jupyter_args: '--notebook-dir=/ --NotebookApp.default_url=/tree/global/home/users/"${USER}"'
-  extra_jupyterlab_args: '--NotebookApp.default_url=/global/home/users/"${USER}"'
+  extra_jupyterlab_args: ''
   
   job_name:
     label: "Name of the Job"
     value: "OOD_Jupyter"
-
-  path:
-    label: "Base directory"
-    help: "Directory that Jupyter will treat as its root directory and that the file browser will start in. Leave blank to default to your home directory."
 
   modules:
     label: "Software modules"
