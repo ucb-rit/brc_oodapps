@@ -1,0 +1,89 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+#   hard-coded/user-defined attributes that make up this Batch Connect app.
+<%-
+  cmd = "/usr/bin/sacctmgr show associations user=$USER -P -n format=partition,account,qos | grep -v ood-inter |grep -vw savio |sort |uniq"
+  begin
+    output, status = Open3.capture2e(cmd)
+    if status.success?
+      raw_data = output
+    else
+      raise output
+    end
+  rescue => e
+    qos = []
+    qerror = e.message.strip
+  end
+-%>
+
+---
+
+cluster: "brc"
+
+form:
+  - desktop
+  - job_name
+  - slurm_partition
+  - slurm_account
+  - qos_name
+  - gres_value
+  - num_nodes
+  - num_cores
+  - bc_num_hours
+  - user_email
+  - raw_data
+  - node_type
+
+
+attributes:
+  desktop: "xfce"
+  node_type: "CPU"
+  
+  job_name:
+    label: "Name of the Job"
+    value: "OOD_Desktop"
+
+  bc_num_hours:
+    label: "Wall Clock Time"
+    help: "The maximum number of hours your Desktop session will run for (at most one hour when using savio_debug QoS). To save FCA credits or free up resources for your condo group members, you should delete your session when you are done."
+    value: 1
+
+  slurm_partition: 
+    label: "SLURM Partition"
+    help: "The SLURM partition in which you want to launch this Desktop session."
+    widget: select
+
+  slurm_account:
+    label: "SLURM Account/Project Name"
+    help: "The SLURM account (i.e., the value of the -A or --account flag used when submitting a SLURM job)."
+    widget: select
+
+  qos_name:
+    label: "SLURM QoS Name"
+    help: "The QoS you want run under. Most FCA users choose savio_normal. Condo users can either use their condo QoS or the low-priority QoS."
+    widget: select
+
+  num_nodes:
+    label: "Number of Compute Nodes"
+    help: "The number of nodes you want for your Desktop session."
+    value: 1
+    
+  num_cores:
+    label: "Number of CPU Cores per Node"
+    help: "The number of CPU cores you want per node for your Desktop session. See documentation for requirements when a GPU is requested."
+    value: 1
+
+  gres_value:
+    label: "Type and number of GPUs"
+    help: "A value in the form 'gpu:type:x' where 'x' is the number of GPUs and (often but not always required) 'type' is the type of GPU. See our documentation for details."
+
+  user_email:
+    label: "Email Address (optional)"
+    help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."
+
+  raw_data:
+    label: "Account associations for use by JavaScript"
+    widget: hidden_field
+    value: "<%= raw_data %>"
+    cacheable: false
