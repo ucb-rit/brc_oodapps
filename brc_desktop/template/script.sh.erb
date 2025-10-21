@@ -12,10 +12,10 @@ export XDG_CONFIG_HOME="<%= session.staged_root.join("config") %>"
 export XDG_DATA_HOME="<%= session.staged_root.join("share") %>"
 export XDG_CACHE_HOME="$(mktemp -d)"
 set -x
-xfwm4 --compositor=off --sm-client-disable &
+xfwm4 --compositor=off --sm-client-disable --replace &
 sleep 5
 xsetroot -solid "#D3D3D3"
-xfsettingsd --sm-client-disable
+xfsettingsd --daemon --sm-client-disable
 xfce4-panel --sm-client-disable &
 sleep 5
 
