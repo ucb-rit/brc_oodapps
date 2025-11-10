@@ -3,6 +3,9 @@
 # Change working directory to user's home directory
 cd "${HOME}"
 
+# Module purge
+module purge
+
 # Ensure that the user's configured login shell is used
 export SHELL="$(getent passwd $USER | cut -d: -f7)"
 
