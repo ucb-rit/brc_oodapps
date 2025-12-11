@@ -13,12 +13,12 @@ module list
 
 
 # load R (before RStudio as RStudio module needs ${R_DIR} set)
-module load <%= context.Rapp %>  
+module load <%= context.r_app %>  
 
 # load RStudio Server
-module load <%= context.Rserver %>  
+module load <%= context.r_server %>  
 
-module load <%= context.Rspatial %>
+module load <%= context.r_spatial %>
 
 
 # Free RStudio Server does not support use of R_LIBS_SITE:
