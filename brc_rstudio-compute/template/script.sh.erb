@@ -12,11 +12,11 @@ module list
 <%- end -%>
 
 # load R (before RStudio as RStudio module needs ${R_DIR} set)
-module load <%= context.Rapp %>  
+module load <%= context.r_app %>  
 
 # load RStudio Server
-module load <%= context.Rserver %>  
-module load <%= context.Rspatial %>
+module load <%= context.r_server %>  
+module load <%= context.r_spatial %>
 
 # User-specified module(s).
 module load <%= context.modules %>
