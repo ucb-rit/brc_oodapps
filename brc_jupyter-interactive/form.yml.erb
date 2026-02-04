@@ -12,6 +12,7 @@ form:
   - modules
   - extra_jupyterlab_args
   - bc_num_hours
+  - slurm_reservation
 
 attributes:
   extra_jupyterlab_args: '' 
@@ -28,6 +29,12 @@ attributes:
     label: "Wall Clock Time"
     help: "The maximum number of hours your Jupyter session will run for. Please delete your session when you are done." 
     value: 1
+
+  slurm_reservation:
+    label: "Reservation (Optional)"
+    help: "Enter your reservation name (e.g. maint) if you have a slurm reservation. Leave blank if you do not have a slurm reservation."
+    cacheable: false
+
 
 #  slurm_partition:
 #    label: "SLURM Partition"
