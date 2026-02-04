@@ -41,4 +41,8 @@ script:
      - "--mail-type"
      - "BEGIN"
      <%- end %>
+     <%- if not slurm_reservation.blank? %>
+     - "--reservation"
+     - "<%= slurm_reservation %>"
+     <%- end %>
 
