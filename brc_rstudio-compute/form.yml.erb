@@ -36,6 +36,7 @@ form:
   - gres_value
   - bc_num_hours
   - user_email
+  - slurm_reservation
   - raw_data
 
 attributes:
@@ -89,6 +90,11 @@ attributes:
   user_email:
     label: "Email Address (Optional)"
     help: "Enter your email address if you would like to receive an email when the session starts. Leave blank for no email."
+
+  slurm_reservation:
+    label: "Reservation (Optional)"
+    help: "Enter your reservation name (e.g. maint) if you have a slurm reservation. Leave blank if you do not have a slurm reservation."
+    cacheable: false
 
   raw_data:
     label: "Account associations for use by JavaScript"
