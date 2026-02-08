@@ -13,6 +13,7 @@ form:
   - job_name
   - modules
   - bc_num_hours
+  - slurm_reservation
 
 attributes:
 
@@ -31,4 +32,9 @@ attributes:
     help: "The maximum number of hours your VS Code session will run for. Please delete your session when you are done."
     value: 1
     max: 72
+
+  slurm_reservation:
+    label: "Reservation (Optional)"
+    help: "Enter your reservation name (e.g. maint) if you have a slurm reservation. Leave blank if you do not have a slurm reservation."
+    cacheable: false
 
