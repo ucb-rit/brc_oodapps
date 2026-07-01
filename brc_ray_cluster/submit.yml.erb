@@ -1,0 +1,37 @@
+---
+batch_connect:
+  template: "basic"
+  conn_params:
+    - host
+    - port
+    - password
+    - ray_port
+    - dashboard_port
+    - ray_token
+
+script:
+  job_name: "<%= job_name %>"
+  queue_name: "<%= slurm_partition %>"
+  native:
+    <%- if slurm_account != "" %>
+     - "--account"
+     - "<%= slurm_account %>"
+    <%- end %>
+    <%- if qos_name != "" %>
+     - "--qos"
+     - "<%= qos_name %>"
+    <%- end %>
+     - "--exclusive"
+     - "--mem=0"
+     - "-N"
+     - "<%= num_nodes %>"
+    <%- if user_email != "" %>
+     - "--mail-user"
+     - "<%= user_email %>"
+     - "--mail-type"
+     - "BEGIN"
+    <%- end %>
+    <%- if not slurm_reservation.blank? %>
+     - "--reservation"
+     - "<%= slurm_reservation %>"
+    <%- end %>

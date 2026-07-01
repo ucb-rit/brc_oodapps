@@ -1,0 +1,25 @@
+<script type="text/javascript">
+(function () {
+    let date = new Date();
+    date.setTime(date.getTime() + (7*24*60*60*1000));
+    let expires = `expires=${date.toUTCString()}"`;
+    let cookiePath = 'path=/rnode/<%= host %>/<%= dashboard_port %>';
+    let cookie = `ray-authentication-token=<%= ray_token %>;${cookiePath};${expires};samesite=strict;`;
+    document.cookie = cookie;
+})();
+</script>
+
+<div style="display: inline-block;">
+<form action="/node/<%= host %>/<%= port %>/login" method="post" target="_blank" style="display: inline-block;">
+  <input type="hidden" name="password" value="<%= password %>">
+  <button class="btn btn-primary" type="submit">
+    <i class="fa fa-eye"></i> Connect to Jupyter
+  </button>
+</form>
+<form id="<%= form_id %>" action="/rnode/<%= host %>/<%= dashboard_port %>/" method="get" target="_blank" style="display: inline-block;">
+  <button class="btn btn-primary" type="submit">
+    <i class="fa fa-cogs"></i> Ray Dashboard
+  </button>
+</form>
+</div>
+

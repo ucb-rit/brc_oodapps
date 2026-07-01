@@ -1,0 +1,10 @@
+---
+name: Ray Cluster
+category: Interactive Apps
+subcategory: Servers
+role: batch_connect
+description: |
+  This app will launch a [Ray] cluster on the Berkeley Research Computing ([BRC]) Savio cluster.
+
+  [Ray]: https://docs.ray.io/
+  [BRC]: https://research-it.berkeley.edu/programs/berkeley-research-computing
