@@ -21,6 +21,12 @@ script:
      - "--qos"
      - "<%= qos_name %>"
     <%- end %>
+    <%- if gres_type != "" %>
+     - "--gres"
+     - "gpu:<%=gres_type %>:<%=gres_count %>"
+    <%- end %>
+     - "--ntasks-per-node"
+     - "1"
      - "--exclusive"
      - "--mem=0"
      - "-N"

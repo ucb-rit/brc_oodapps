@@ -165,6 +165,7 @@ function set_gres_type_change_handler() {
 
   $("#batch_connect_session_context_num_cores").val(num_cores);
   $("#batch_connect_session_context_gres_count").attr("max", max_gpu);
+  $("#batch_connect_session_context_gres_count").val(max_gpu);
 
   });
 
