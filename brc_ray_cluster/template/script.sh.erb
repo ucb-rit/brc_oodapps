@@ -9,6 +9,15 @@ cd "${HOME}"
 # Start Jupyter Notebook Server
 #
 module purge
+
+<%- unless context.modules.blank? -%>
+# User-specified module(s).
+module load <%= context.modules %>
+
+# List loaded modules
+module list
+<%- end -%>
+
 module load ml/ray/2.54.1
 
 export PYTHONNOUSERSITE=<%= context.python_no_user %>
