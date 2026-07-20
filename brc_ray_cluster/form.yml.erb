@@ -27,9 +27,9 @@ form:
   - extra_jupyterlab_args
   - slurm_account
   - qos_name
-  - num_nodes
   - gres_type
   - gres_count
+  - num_nodes
   - num_cores
   - bc_num_hours
   - python_no_user
@@ -56,7 +56,7 @@ attributes:
 
   slurm_partition:
     label: "SLURM Partition"
-    help: "The SLURM Partition in which you want to launch this Jupyter session. For code that is not parallelized (or using only a small number of CPU cores), the HTC partitions are a good choice."
+    help: "The SLURM Partition in which you want to launch the Ray cluster."
     widget: select
     required: true
 
@@ -89,11 +89,7 @@ attributes:
     checked_value: 1
     unchecked_value: 0
 
-  num_cores:
-    widget: "number_field"
-    label: "Number of CPU Cores per Node"
-    value: 1
-    min: 1
+  num_cores: 2
 
   user_email:
     label: "Email Address (Optional)"

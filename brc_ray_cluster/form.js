@@ -73,16 +73,15 @@ function toggle_cpu_cores_field_visibility() {
  * Toggle the visibility of the SLURM Account and QOS fields
  */
 function toggle_slurm_account_qos_fields_visibility() {
-  let slurm_partition = $("#batch_connect_session_context_slurm_partition");
-  let non_account_partition = [ 'vector' ];
+  //let slurm_partition = $("#batch_connect_session_context_slurm_partition");
 
   toggle_visibility_of_form_group(
-    '#batch_connect_session_context_slurm_account',
-    !non_account_partition.includes(slurm_partition.val()));
+    '#batch_connect_session_context_slurm_account', 
+    true);
 
   toggle_visibility_of_form_group(
     '#batch_connect_session_context_qos_name',
-    !non_account_partition.includes(slurm_partition.val()));
+    true);
 }
 
 function set_available_accounts() {
@@ -178,7 +177,7 @@ function set_slurm_partition_change_handler() {
   let slurm_partition = $("#batch_connect_session_context_slurm_partition");
   slurm_partition.on("change", () => {
     toggle_gres_value_field_visibility();
-    toggle_cpu_cores_field_visibility();
+    //toggle_cpu_cores_field_visibility();
     toggle_slurm_account_qos_fields_visibility();
     update_available_options();
   });
@@ -221,7 +220,7 @@ $(document).ready(function() {
   set_available_partitions();
   // Ensure that fields are shown or hidden based on what was set in the last session
   toggle_gres_value_field_visibility();
-  toggle_cpu_cores_field_visibility();
+  // toggle_cpu_cores_field_visibility();
   toggle_slurm_account_qos_fields_visibility();
   // Update available options appropriately
   update_available_options();

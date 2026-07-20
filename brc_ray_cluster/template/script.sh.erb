@@ -33,8 +33,6 @@ export RAY_GRAFANA_IFRAME_HOST="https://ood.brc.berkeley.edu/rnode/${head_node}/
 export RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
 export RAY_ADDRESS=${head_node_ip}:${ray_port}
 
-# End Ray Cluster Stuff
-
 # Benchmark info
 echo "TIMING - Starting Ray at: $(date)"
 
@@ -67,7 +65,7 @@ cat <<EOF >> "${BASE_TMPDIR}/ray/session_latest/metrics/grafana/grafana.ini"
 
 [server]
 root_url = https://ood.brc.berkeley.edu/rnode/${head_node}/3000
-server_from_sub_path = true
+serve_from_sub_path = false
 
 [paths]
 data = /dev/shm/data-${SLURM_JOBID}
