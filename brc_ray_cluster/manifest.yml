@@ -1,0 +1,12 @@
+---
+name: Ray Cluster + Jupyter - compute via Slurm using Savio partitions
+category: Interactive Apps
+subcategory: Servers
+role: batch_connect
+description: |
+  This app will launch a [Ray] cluster on the Berkeley Research Computing ([BRC]) Savio cluster. 
+  You can open a Jupyter Notebook in the python environment with Ray and PyTorch. You can also open the Ray Dashboard.
+  This app requests nodes exclusively i.e. compute nodes are not shared with other jobs.
+
+  [Ray]: https://docs.ray.io/
+  [BRC]: https://research-it.berkeley.edu/programs/berkeley-research-computing
