@@ -14,7 +14,7 @@ script:
    job_name: "<%= job_name %>"
    queue_name: "<%= slurm_partition %>"
    email_on_started: true
-   <%- if slurm_partition == "vector" %>"
+   <%- if slurm_partition == "vector" %>
    qos: "vector_batch"
    <%- else %> 
    <%- if qos_name != "" %>
