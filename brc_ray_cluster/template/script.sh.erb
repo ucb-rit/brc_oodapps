@@ -33,6 +33,9 @@ export RAY_GRAFANA_IFRAME_HOST="https://ood.brc.berkeley.edu/rnode/${head_node}/
 export RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
 export RAY_ADDRESS=${head_node_ip}:${ray_port}
 
+# Increase max user processes to 65536
+ulimit -Su 65536
+
 # Benchmark info
 echo "TIMING - Starting Ray at: $(date)"
 
