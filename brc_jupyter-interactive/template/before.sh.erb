@@ -45,6 +45,12 @@ export CONFIG_FILE="${PWD}/config.py"
 (
 umask 077
 cat > "${CONFIG_FILE}" << EOL
+import signal
+if signal.getsignal(signal.SIGINT) is signal.SIG_IGN:
+    signal.signal(signal.SIGINT, signal.default_int_handler)
+if signal.getsignal(signal.SIGQUIT) is signal.SIG_IGN:
+    signal.signal(signal.SIGQUIT, signal.SIG_DFL)
+    
 c.ServerApp.ip = '*'
 c.ServerApp.port = ${port}
 c.ServerApp.port_retries = 0
